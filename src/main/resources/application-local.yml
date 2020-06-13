@@ -1,0 +1,10 @@
+spring:
+  h2.console:
+    enabled: true
+    path: '/console'
+  datasource:
+    url: 'jdbc:h2:file:E:/ultimate-organizerApp/ultimate-organizerApp/ultimate-organizerdb'
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
