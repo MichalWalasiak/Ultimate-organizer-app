@@ -52,7 +52,7 @@ abstract class BaseJob {
         return specification;
     }
 
-    void setSpecification(String specification) {
+    public void setSpecification(String specification) {
         this.specification = specification;
     }
 

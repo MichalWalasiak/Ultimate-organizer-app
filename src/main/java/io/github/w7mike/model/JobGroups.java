@@ -26,7 +26,7 @@ public class JobGroups extends BaseJob {
         return jobs;
     }
 
-    void setJobSet(final Set<Job> jobSet) {
+     public void setJobs(final Set<Job> jobSet) {
         this.jobs = jobSet;
     }
 
