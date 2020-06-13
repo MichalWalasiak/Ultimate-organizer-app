@@ -14,7 +14,7 @@ public class TempService {
     @Autowired
     List<String> temp (JobGroupsRepository repository){
         return repository.findAll().stream()
-                .flatMap(jobGroups -> jobGroups.getJobSet().stream())
+                .flatMap(jobGroups -> jobGroups.getJobs().stream())
                 .map(Job::getSpecification)
                 .collect(Collectors.toList());
     }

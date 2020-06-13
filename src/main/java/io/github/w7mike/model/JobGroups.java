@@ -22,7 +22,7 @@ public class JobGroups extends BaseJob {
     public JobGroups() {
     }
 
-    public Set<Job> getJobSet() {
+    public Set<Job> getJobs() {
         return jobs;
     }
 
