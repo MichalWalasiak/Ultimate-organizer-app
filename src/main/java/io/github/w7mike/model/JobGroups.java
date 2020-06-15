@@ -22,11 +22,11 @@ public class JobGroups extends BaseJob {
     public JobGroups() {
     }
 
-    public Set<Job> getJobSet() {
+    public Set<Job> getJobs() {
         return jobs;
     }
 
-    void setJobSet(final Set<Job> jobSet) {
+     public void setJobs(final Set<Job> jobSet) {
         this.jobs = jobSet;
     }
 
