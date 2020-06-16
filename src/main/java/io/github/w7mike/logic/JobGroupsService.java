@@ -22,7 +22,7 @@ public class JobGroupsService {
         this.jobRepository = jobRepository;
     }
 
-    public GroupReadModel createGroup(GroupWriteModel source){
+    public GroupReadModel createGroup(final GroupWriteModel source){
         JobGroups result = repository.save(source.toGroup());
         return new GroupReadModel(result);
     }
