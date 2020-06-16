@@ -2,7 +2,6 @@ package io.github.w7mike.logic;
 
 import io.github.w7mike.JobConfigurationProperties;
 import io.github.w7mike.model.JobGroupsRepository;
-import io.github.w7mike.model.JobRepository;
 import io.github.w7mike.model.ProjectRepository;
 import io.github.w7mike.model.Projects;
 import org.springframework.stereotype.Service;
@@ -20,6 +19,14 @@ public class ProjectsService {
         this.repository = repository;
         this.groupsRepository = groupsRepository;
         this.properties = properties;
+    }
+
+    public List<Projects> readAll(){
+        return repository.findAll();
+    }
+
+    public Projects createGroup(final Projects toCreate){
+        return repository.save(toCreate);
     }
 
 
