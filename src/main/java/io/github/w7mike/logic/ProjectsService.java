@@ -1,14 +1,14 @@
 package io.github.w7mike.logic;
 
 import io.github.w7mike.JobConfigurationProperties;
-import io.github.w7mike.model.JobGroupsRepository;
-import io.github.w7mike.model.ProjectRepository;
-import io.github.w7mike.model.Projects;
+import io.github.w7mike.model.*;
 import io.github.w7mike.model.projection.GroupJobReadModel;
 import io.github.w7mike.model.projection.GroupReadModel;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectsService {
@@ -31,5 +31,25 @@ public class ProjectsService {
         return repository.save(toCreate);
     }
 
+    public GroupReadModel createGroup(LocalDateTime deadline, Integer projectId){
 
+        if (!properties.getTemplate().isAllowMultipleJobs() && groupsRepository.existsByCompleteIsFalseAndProjects_Id(projectId)){
+            throw new IllegalStateException("only one incomplete group in project is allowed");
+        }
+
+        JobGroups result = repository.findById(projectId)
+                .map(projects -> {
+                    var target = new JobGroups();
+                    target.setSpecification(projects.getSpecification());
+                    target.setJobs(projects.getSteps().stream()
+                    .map(projectSteps -> new Job
+                            (projectSteps.getSpecification(),
+                                    deadline.plusDays(projectSteps.getDaysToDeadline()))
+                    ).collect(Collectors.toSet())
+                );
+                return target;
+                }).orElseThrow(()-> new IllegalArgumentException("project with given Id do not exists"));
+
+        return new GroupReadModel(result);
+    }
 }
