@@ -34,6 +34,16 @@ public class JobGroupsService {
                 .collect(Collectors.toSet());
     }
 
+    public void toggleGroup(Integer groupId){
+        if (jobRepository.existsByCompleteIsFalseAndJobGroups_Id(groupId)){
+            throw new IllegalStateException("Group contains uncompleted jobs, please complete all jobs first");
+        }
+
+        JobGroups result = repository.findById(groupId)
+                .orElseThrow(()-> new IllegalArgumentException("Group with given id does not exists"));
+
+    }
+
 
 
 
