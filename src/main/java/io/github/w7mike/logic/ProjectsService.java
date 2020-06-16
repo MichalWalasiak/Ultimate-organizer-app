@@ -4,6 +4,8 @@ import io.github.w7mike.JobConfigurationProperties;
 import io.github.w7mike.model.JobGroupsRepository;
 import io.github.w7mike.model.ProjectRepository;
 import io.github.w7mike.model.Projects;
+import io.github.w7mike.model.projection.GroupJobReadModel;
+import io.github.w7mike.model.projection.GroupReadModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +27,7 @@ public class ProjectsService {
         return repository.findAll();
     }
 
-    public Projects createGroup(final Projects toCreate){
+    public Projects createProject(final Projects toCreate){
         return repository.save(toCreate);
     }
 
