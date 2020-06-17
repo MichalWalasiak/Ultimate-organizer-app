@@ -23,11 +23,7 @@ class ProjectsServiceTest {
         var mockGroupRepository = mock(JobGroupsRepository.class);
         when(mockGroupRepository.existsByCompleteIsFalseAndProjects_Id(anyInt())).thenReturn(true);
         //and
-        var mockTemplate = mock(JobConfigurationProperties.Template.class);
-        when(mockTemplate.isAllowMultipleJobs()).thenReturn(false);
-        //and
-        var mockProperties = mock(JobConfigurationProperties.class);
-        when(mockProperties.getTemplate()).thenReturn(mockTemplate);
+        JobConfigurationProperties mockProperties = configurationReturning(false);
         //System Under Test
         var toTest = new ProjectsService(null, mockGroupRepository, mockProperties);
 
@@ -49,13 +45,9 @@ class ProjectsServiceTest {
         var mockRepository = mock(ProjectRepository.class);
         when(mockRepository.findById(anyInt())).thenReturn(Optional.empty());
         //and
-        var mockTemplate = mock(JobConfigurationProperties.Template.class);
-        when(mockTemplate.isAllowMultipleJobs()).thenReturn(false);
-        //and
-        var mockProperties = mock(JobConfigurationProperties.class);
-        when(mockProperties.getTemplate()).thenReturn(mockTemplate);
+        JobConfigurationProperties mockProperties = configurationReturning(true);
         //System Under Test
-        var toTest = new ProjectsService(null, null, mockProperties);
+        var toTest = new ProjectsService(mockRepository, null, mockProperties);
 
         //when
         var exception = catchThrowable(()-> toTest.createGroup(LocalDateTime.now(), 0));
@@ -63,8 +55,17 @@ class ProjectsServiceTest {
         //then
 
         assertThat(exception)
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessageContaining("one incomplete group");
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Id do not exists");
 
+    }
+
+    private JobConfigurationProperties configurationReturning(final boolean result) {
+        var mockTemplate = mock(JobConfigurationProperties.Template.class);
+        when(mockTemplate.isAllowMultipleJobs()).thenReturn(result);
+        //and
+        var mockProperties = mock(JobConfigurationProperties.class);
+        when(mockProperties.getTemplate()).thenReturn(mockTemplate);
+        return mockProperties;
     }
 }
