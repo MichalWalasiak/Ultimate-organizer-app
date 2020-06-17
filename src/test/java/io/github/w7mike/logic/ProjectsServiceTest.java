@@ -2,10 +2,12 @@ package io.github.w7mike.logic;
 
 import io.github.w7mike.JobConfigurationProperties;
 import io.github.w7mike.model.JobGroupsRepository;
+import io.github.w7mike.model.ProjectRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,8 +46,8 @@ class ProjectsServiceTest {
     @DisplayName("Should throw IllegalArgumentException when configuration ok and no projects exists with given id")
     void createGroup_ConfigurationOk_And_noProjects_throwsIllegalArgumentException() {
         //given
-        var mockGroupRepository = mock(JobGroupsRepository.class);
-        when(mockGroupRepository.existsByCompleteIsFalseAndProjects_Id(anyInt())).thenReturn(true);
+        var mockRepository = mock(ProjectRepository.class);
+        when(mockRepository.findById(anyInt())).thenReturn(Optional.empty());
         //and
         var mockTemplate = mock(JobConfigurationProperties.Template.class);
         when(mockTemplate.isAllowMultipleJobs()).thenReturn(false);
@@ -53,7 +55,7 @@ class ProjectsServiceTest {
         var mockProperties = mock(JobConfigurationProperties.class);
         when(mockProperties.getTemplate()).thenReturn(mockTemplate);
         //System Under Test
-        var toTest = new ProjectsService(null, mockGroupRepository, mockProperties);
+        var toTest = new ProjectsService(null, null, mockProperties);
 
         //when
         var exception = catchThrowable(()-> toTest.createGroup(LocalDateTime.now(), 0));
