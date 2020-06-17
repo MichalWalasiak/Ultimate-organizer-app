@@ -60,6 +60,31 @@ class ProjectsServiceTest {
 
     }
 
+    @Test
+    @DisplayName("Should throw IllegalArgumentException when configuration allows 1 group and no groups and projects exists with given id")
+    void createGroup_NoMultipleGroupsProperties_And_noIncompleteGroups_And_NoProjects_throwsIllegalArgumentException() {
+        //given
+        var mockGroupRepository = mock(JobGroupsRepository.class);
+        when(mockGroupRepository.existsByCompleteIsFalseAndProjects_Id(anyInt())).thenReturn(true);
+        //and
+        var mockRepository = mock(ProjectRepository.class);
+        when(mockRepository.findById(anyInt())).thenReturn(Optional.empty());
+        //and
+        JobConfigurationProperties mockProperties = configurationReturning(true);
+        //System Under Test
+        var toTest = new ProjectsService(mockRepository, null, mockProperties);
+
+        //when
+        var exception = catchThrowable(()-> toTest.createGroup(LocalDateTime.now(), 0));
+
+        //then
+
+        assertThat(exception)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Id do not exists");
+
+    }
+
     private JobConfigurationProperties configurationReturning(final boolean result) {
         var mockTemplate = mock(JobConfigurationProperties.Template.class);
         when(mockTemplate.isAllowMultipleJobs()).thenReturn(result);
