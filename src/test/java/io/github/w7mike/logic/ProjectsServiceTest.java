@@ -20,8 +20,7 @@ class ProjectsServiceTest {
     @DisplayName("Should throw IllegalStateException when properties allows one groups and other incomplete groups exist")
     void createGroup_NoMultipleGroupsProperties_And_IncompleteGroupsExists_throwsIllegalStateException() {
         //given
-        var mockGroupRepository = mock(JobGroupsRepository.class);
-        when(mockGroupRepository.existsByCompleteIsFalseAndProjects_Id(anyInt())).thenReturn(true);
+        var mockGroupRepository = groupRepositoryReturning(true);
         //and
         JobConfigurationProperties mockProperties = configurationReturning(false);
         //System Under Test
@@ -64,15 +63,14 @@ class ProjectsServiceTest {
     @DisplayName("Should throw IllegalArgumentException when configuration allows 1 group and no groups and projects exists with given id")
     void createGroup_NoMultipleGroupsProperties_And_noIncompleteGroups_And_NoProjects_throwsIllegalArgumentException() {
         //given
-        var mockGroupRepository = mock(JobGroupsRepository.class);
-        when(mockGroupRepository.existsByCompleteIsFalseAndProjects_Id(anyInt())).thenReturn(true);
-        //and
         var mockRepository = mock(ProjectRepository.class);
         when(mockRepository.findById(anyInt())).thenReturn(Optional.empty());
         //and
+        JobGroupsRepository mockGroupRepository1 = groupRepositoryReturning(true);
+        //and
         JobConfigurationProperties mockProperties = configurationReturning(true);
         //System Under Test
-        var toTest = new ProjectsService(mockRepository, null, mockProperties);
+        var toTest = new ProjectsService(mockRepository, mockGroupRepository1, mockProperties);
 
         //when
         var exception = catchThrowable(()-> toTest.createGroup(LocalDateTime.now(), 0));
@@ -83,6 +81,12 @@ class ProjectsServiceTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Id do not exists");
 
+    }
+
+    private JobGroupsRepository groupRepositoryReturning(final boolean result) {
+        var mockGroupRepository = mock(JobGroupsRepository.class);
+        when(mockGroupRepository.existsByCompleteIsFalseAndProjects_Id(anyInt())).thenReturn(result);
+        return mockGroupRepository;
     }
 
     private JobConfigurationProperties configurationReturning(final boolean result) {
