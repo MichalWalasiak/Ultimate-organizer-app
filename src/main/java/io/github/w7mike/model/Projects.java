@@ -51,11 +51,11 @@ public class Projects {
         this.groups = jobs;
     }
 
-    Set<ProjectSteps> getSteps() {
+    public Set<ProjectSteps> getSteps() {
         return steps;
     }
 
-    public void setSteps(final Set<ProjectSteps> steps) {
+    void setSteps(final Set<ProjectSteps> steps) {
         this.steps = steps;
     }
 }
