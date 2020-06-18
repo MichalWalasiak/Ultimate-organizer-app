@@ -20,7 +20,7 @@ class ProjectsServiceTest {
     @DisplayName("Should throw IllegalStateException when properties allows one groups and other incomplete groups exist")
     void createGroup_NoMultipleGroupsProperties_And_IncompleteGroupsExists_throwsIllegalStateException() {
         //given
-        var mockGroupRepository = groupRepositoryReturning(true);
+        JobGroupsRepository mockGroupRepository = groupRepositoryReturning(true);
         //and
         JobConfigurationProperties mockProperties = configurationReturning(false);
         //System Under Test
