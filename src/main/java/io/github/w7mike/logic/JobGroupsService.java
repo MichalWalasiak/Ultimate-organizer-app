@@ -43,6 +43,8 @@ public class JobGroupsService {
 
         JobGroups result = repository.findById(groupId)
                 .orElseThrow(()-> new IllegalArgumentException("Group with given id does not exists"));
+        result.setComplete(!result.isComplete());
+        repository.save(result);
 
     }
 
