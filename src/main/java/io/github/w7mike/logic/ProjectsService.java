@@ -47,7 +47,7 @@ public class ProjectsService {
                                     deadline.plusDays(projectSteps.getDaysToDeadline()))
                     ).collect(Collectors.toSet())
                 );
-                return target;
+                 return groupsRepository.save(target);
                 }).orElseThrow(()-> new IllegalArgumentException("project with given Id do not exists"));
 
         return new GroupReadModel(result);
