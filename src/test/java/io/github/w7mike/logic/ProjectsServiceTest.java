@@ -83,6 +83,14 @@ class ProjectsServiceTest {
 
     }
 
+
+    @Test
+    @DisplayName("should create brand new group from project")
+    void createGroup_configurationOk_projectsExists_createNewGroup(){
+
+    }
+
+
     private JobGroupsRepository groupRepositoryReturning(final boolean result) {
         var mockGroupRepository = mock(JobGroupsRepository.class);
         when(mockGroupRepository.existsByCompleteIsFalseAndProjects_Id(anyInt())).thenReturn(result);
