@@ -99,6 +99,10 @@ class ProjectsServiceTest {
         Integer sizeBeforeCall = inMemoryGroupRepository().count();
         //and
         JobConfigurationProperties mockProperties = configurationReturning(true);
+        //System Under test
+        var toTest = new ProjectsService(mockRepository, inMemoryGroupRepository, mockProperties);
+
+
 
     }
 
