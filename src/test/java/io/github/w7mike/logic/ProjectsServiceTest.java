@@ -148,7 +148,9 @@ class ProjectsServiceTest {
 
             @Override
             public boolean existsByCompleteIsFalseAndProjects_Id(final Integer projectId) {
-                return false;
+                return map.values().stream()
+                        .filter(jobGroups -> !jobGroups.isComplete())
+                        .anyMatch(jobGroups -> jobGroups.getProjects() != null && jobGroups.getProjects().getId() == projectId);
             }
         };
     }
