@@ -115,6 +115,7 @@ class ProjectsServiceTest {
     private JobGroupsRepository inMemoryGroupRepository(){
         return new JobGroupsRepository() {
 
+            private Integer index = 0;
             private Map<Integer, JobGroups> map = new HashMap<>();
 
             @Override
