@@ -125,6 +125,11 @@ class ProjectsServiceTest {
         private Integer index = 0;
         private Map<Integer, JobGroups> map = new HashMap<>();
 
+        public int count(){
+            return map.values().size();
+        }
+
+
         @Override
         public List<JobGroups> findAll() {
             return new ArrayList<>(map.values());
