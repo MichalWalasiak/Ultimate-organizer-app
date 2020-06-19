@@ -112,46 +112,53 @@ class ProjectsServiceTest {
         return mockProperties;
     }
 
-    private JobGroupsRepository inMemoryGroupRepository(){
-        return new JobGroupsRepository() {
+    private InMemoryGroupRepository inMemoryGroupRepository(){
+        return new InMemoryGroupRepository() {
 
-            private Integer index = 0;
-            private Map<Integer, JobGroups> map = new HashMap<>();
-
-            @Override
-            public List<JobGroups> findAll() {
-                return new ArrayList<>(map.values());
-            }
-
-            @Override
-            public Optional<JobGroups> findById(final Integer id) {
-                return Optional.ofNullable(map.get(id));
-            }
-
-            @Override
-            public JobGroups save(final JobGroups entity) {
-                if (entity.getId() == 0){
-                    try {
-                        JobGroups.class.getDeclaredField("id").set(entity, ++index);
-                    } catch (NoSuchFieldException | IllegalAccessException e) {
-                        throw new RuntimeException();
-                    }
-                }
-                map.put(entity.getId(), entity);
-                return entity;
-            }
-
-            @Override
-            public void deleteById(final Integer id) {
-
-            }
-
-            @Override
-            public boolean existsByCompleteIsFalseAndProjects_Id(final Integer projectId) {
-                return map.values().stream()
-                        .filter(jobGroups -> !jobGroups.isComplete())
-                        .anyMatch(jobGroups -> jobGroups.getProjects() != null && jobGroups.getProjects().getId() == projectId);
-            }
         };
     }
+
+    private static class InMemoryGroupRepository implements JobGroupsRepository{
+
+        private Integer index = 0;
+        private Map<Integer, JobGroups> map = new HashMap<>();
+
+        @Override
+        public List<JobGroups> findAll() {
+            return new ArrayList<>(map.values());
+        }
+
+        @Override
+        public Optional<JobGroups> findById(final Integer id) {
+            return Optional.ofNullable(map.get(id));
+        }
+
+        @Override
+        public JobGroups save(final JobGroups entity) {
+            if (entity.getId() == 0){
+                try {
+                    JobGroups.class.getDeclaredField("id").set(entity, ++index);
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    throw new RuntimeException();
+                }
+            }
+            map.put(entity.getId(), entity);
+            return entity;
+        }
+
+        @Override
+        public void deleteById(final Integer id) {
+
+        }
+
+        @Override
+        public boolean existsByCompleteIsFalseAndProjects_Id(final Integer projectId) {
+            return map.values().stream()
+                    .filter(jobGroups -> !jobGroups.isComplete())
+                    .anyMatch(jobGroups -> jobGroups.getProjects() != null && jobGroups.getProjects().getId() == projectId);
+        }
+
+    }
+
+
 }
