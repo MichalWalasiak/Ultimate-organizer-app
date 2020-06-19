@@ -4,6 +4,7 @@ import io.github.w7mike.JobConfigurationProperties;
 import io.github.w7mike.model.JobGroups;
 import io.github.w7mike.model.JobGroupsRepository;
 import io.github.w7mike.model.ProjectRepository;
+import io.github.w7mike.model.projection.GroupReadModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -96,11 +97,19 @@ class ProjectsServiceTest {
         when(mockRepository.findById(anyInt())).thenReturn(Optional.empty());
         //and
         InMemoryGroupRepository inMemoryGroupRepository = inMemoryGroupRepository();
-        Integer sizeBeforeCall = inMemoryGroupRepository().count();
+        int sizeBeforeCall = inMemoryGroupRepository().count();
         //and
         JobConfigurationProperties mockProperties = configurationReturning(true);
+
         //System Under test
         var toTest = new ProjectsService(mockRepository, inMemoryGroupRepository, mockProperties);
+
+        //when
+        GroupReadModel outcome = toTest.createGroup(today, 1);
+
+        //then
+        assertThat(sizeBeforeCall + 1)
+                .isNotEqualTo(inMemoryGroupRepository().count());
 
 
 
