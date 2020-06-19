@@ -8,7 +8,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -115,6 +117,9 @@ class ProjectsServiceTest {
 
     private JobGroupsRepository inMemoryGroupRepository(){
         return new JobGroupsRepository() {
+
+            private Map<Integer, JobGroups> map = new HashMap<>();
+
             @Override
             public List<JobGroups> findAll() {
                 return null;
@@ -139,6 +144,6 @@ class ProjectsServiceTest {
             public boolean existsByCompleteIsFalseAndProjects_Id(final Integer projectId) {
                 return false;
             }
-        }
+        };
     }
 }
