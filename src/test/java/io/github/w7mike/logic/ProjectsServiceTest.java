@@ -7,6 +7,7 @@ import io.github.w7mike.model.ProjectRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -89,6 +90,7 @@ class ProjectsServiceTest {
     @DisplayName("should create brand new group from project")
     void createGroup_configurationOk_projectsExists_createNewGroup(){
         //given
+        var today = LocalDate.now().atStartOfDay();
         var mockRepository = mock(ProjectRepository.class);
         when(mockRepository.findById(anyInt())).thenReturn(Optional.empty());
         //and
