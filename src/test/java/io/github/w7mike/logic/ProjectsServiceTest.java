@@ -130,7 +130,15 @@ class ProjectsServiceTest {
 
             @Override
             public JobGroups save(final JobGroups entity) {
-                return null;
+                if (entity.getId() == 0){
+                    try {
+                        JobGroups.class.getDeclaredField("id").set(entity, ++index);
+                    } catch (NoSuchFieldException | IllegalAccessException e) {
+                        throw new RuntimeException();
+                    }
+                }
+                map.put(entity.getId(), entity);
+                return entity;
             }
 
             @Override
