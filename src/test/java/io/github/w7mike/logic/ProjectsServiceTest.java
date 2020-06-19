@@ -1,13 +1,16 @@
 package io.github.w7mike.logic;
 
 import io.github.w7mike.JobConfigurationProperties;
+import io.github.w7mike.model.JobGroups;
 import io.github.w7mike.model.JobGroupsRepository;
 import io.github.w7mike.model.ProjectRepository;
+import io.github.w7mike.model.projection.GroupReadModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -87,6 +90,28 @@ class ProjectsServiceTest {
     @Test
     @DisplayName("should create brand new group from project")
     void createGroup_configurationOk_projectsExists_createNewGroup(){
+        //given
+        var today = LocalDate.now().atStartOfDay();
+        //and
+        var mockRepository = mock(ProjectRepository.class);
+        when(mockRepository.findById(anyInt())).thenReturn(Optional.empty());
+        //and
+        InMemoryGroupRepository inMemoryGroupRepository = inMemoryGroupRepository();
+        int sizeBeforeCall = inMemoryGroupRepository().count();
+        //and
+        JobConfigurationProperties mockProperties = configurationReturning(true);
+
+        //System Under test
+        var toTest = new ProjectsService(mockRepository, inMemoryGroupRepository, mockProperties);
+
+        //when
+        GroupReadModel outcome = toTest.createGroup(today, 1);
+
+        //then
+        assertThat(sizeBeforeCall + 1)
+                .isNotEqualTo(inMemoryGroupRepository().count());
+
+
 
     }
 
@@ -105,4 +130,59 @@ class ProjectsServiceTest {
         when(mockProperties.getTemplate()).thenReturn(mockTemplate);
         return mockProperties;
     }
+
+    private InMemoryGroupRepository inMemoryGroupRepository(){
+        return new InMemoryGroupRepository() {
+
+        };
+    }
+
+    private static class InMemoryGroupRepository implements JobGroupsRepository{
+
+        private Integer index = 0;
+        private Map<Integer, JobGroups> map = new HashMap<>();
+
+        public int count(){
+            return map.values().size();
+        }
+
+
+        @Override
+        public List<JobGroups> findAll() {
+            return new ArrayList<>(map.values());
+        }
+
+        @Override
+        public Optional<JobGroups> findById(final Integer id) {
+            return Optional.ofNullable(map.get(id));
+        }
+
+        @Override
+        public JobGroups save(final JobGroups entity) {
+            if (entity.getId() == 0){
+                try {
+                    JobGroups.class.getDeclaredField("id").set(entity, ++index);
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    throw new RuntimeException();
+                }
+            }
+            map.put(entity.getId(), entity);
+            return entity;
+        }
+
+        @Override
+        public void deleteById(final Integer id) {
+
+        }
+
+        @Override
+        public boolean existsByCompleteIsFalseAndProjects_Id(final Integer projectId) {
+            return map.values().stream()
+                    .filter(jobGroups -> !jobGroups.isComplete())
+                    .anyMatch(jobGroups -> jobGroups.getProjects() != null && jobGroups.getProjects().getId() == projectId);
+        }
+
+    }
+
+
 }
