@@ -8,10 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -122,12 +119,12 @@ class ProjectsServiceTest {
 
             @Override
             public List<JobGroups> findAll() {
-                return null;
+                return new ArrayList<>(map.values());
             }
 
             @Override
             public Optional<JobGroups> findById(final Integer id) {
-                return Optional.empty();
+                return Optional.ofNullable(map.get(id));
             }
 
             @Override
