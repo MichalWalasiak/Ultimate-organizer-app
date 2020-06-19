@@ -1,12 +1,14 @@
 package io.github.w7mike.logic;
 
 import io.github.w7mike.JobConfigurationProperties;
+import io.github.w7mike.model.JobGroups;
 import io.github.w7mike.model.JobGroupsRepository;
 import io.github.w7mike.model.ProjectRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -109,5 +111,34 @@ class ProjectsServiceTest {
         var mockProperties = mock(JobConfigurationProperties.class);
         when(mockProperties.getTemplate()).thenReturn(mockTemplate);
         return mockProperties;
+    }
+
+    private JobGroupsRepository inMemoryGroupRepository(){
+        return new JobGroupsRepository() {
+            @Override
+            public List<JobGroups> findAll() {
+                return null;
+            }
+
+            @Override
+            public Optional<JobGroups> findById(final Integer id) {
+                return Optional.empty();
+            }
+
+            @Override
+            public JobGroups save(final JobGroups entity) {
+                return null;
+            }
+
+            @Override
+            public void deleteById(final Integer id) {
+
+            }
+
+            @Override
+            public boolean existsByCompleteIsFalseAndProjects_Id(final Integer projectId) {
+                return false;
+            }
+        }
     }
 }
