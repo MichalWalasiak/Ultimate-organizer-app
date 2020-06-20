@@ -1,9 +1,7 @@
 package io.github.w7mike.logic;
 
 import io.github.w7mike.JobConfigurationProperties;
-import io.github.w7mike.model.JobGroups;
-import io.github.w7mike.model.JobGroupsRepository;
-import io.github.w7mike.model.ProjectRepository;
+import io.github.w7mike.model.*;
 import io.github.w7mike.model.projection.GroupReadModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -94,6 +93,22 @@ class ProjectsServiceTest {
         //then
         assertThat(sizeBeforeCall + 1)
                 .isNotEqualTo(inMemoryGroupRepository().count());
+    }
+
+    private Projects projectWith(String specification, Set<Integer> daysToDeadline){
+            Set<ProjectSteps> steps = daysToDeadline.stream()
+                    .map(days ->{
+                        var step = mock(ProjectSteps.class);
+                        when(step.getSpecification()).thenReturn("foo");
+                        when(step.getDaysToDeadline()).thenReturn(days);
+                    return step;
+                    }).collect(Collectors.toSet());
+
+            var outcome = mock(Projects.class);
+            when(outcome.getSpecification()).thenReturn(specification);
+            when(outcome.getSteps()).thenReturn(steps);
+
+            return outcome;
     }
 
     private JobGroupsRepository groupRepositoryReturning(final boolean result) {
