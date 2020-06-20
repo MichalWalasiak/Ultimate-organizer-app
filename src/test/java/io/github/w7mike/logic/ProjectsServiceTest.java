@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
@@ -24,20 +23,17 @@ class ProjectsServiceTest {
     void createGroup_NoMultipleGroupsProperties_And_IncompleteGroupsExists_throwsIllegalStateException() {
         //given
         JobGroupsRepository mockGroupRepository = groupRepositoryReturning(true);
-        //and
         JobConfigurationProperties mockProperties = configurationReturning(false);
-        //System Under Test
+
         var toTest = new ProjectsService(null, mockGroupRepository, mockProperties);
 
         //when
         var exception = catchThrowable(()-> toTest.createGroup(LocalDateTime.now(), 0));
 
         //then
-
         assertThat(exception)
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("one incomplete group");
-
     }
 
     @Test
@@ -46,20 +42,17 @@ class ProjectsServiceTest {
         //given
         var mockRepository = mock(ProjectRepository.class);
         when(mockRepository.findById(anyInt())).thenReturn(Optional.empty());
-        //and
         JobConfigurationProperties mockProperties = configurationReturning(true);
-        //System Under Test
+
         var toTest = new ProjectsService(mockRepository, null, mockProperties);
 
         //when
         var exception = catchThrowable(()-> toTest.createGroup(LocalDateTime.now(), 0));
 
         //then
-
         assertThat(exception)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Id do not exists");
-
     }
 
     @Test
@@ -68,24 +61,19 @@ class ProjectsServiceTest {
         //given
         var mockRepository = mock(ProjectRepository.class);
         when(mockRepository.findById(anyInt())).thenReturn(Optional.empty());
-        //and
         JobGroupsRepository mockGroupRepository1 = groupRepositoryReturning(true);
-        //and
         JobConfigurationProperties mockProperties = configurationReturning(true);
-        //System Under Test
+
         var toTest = new ProjectsService(mockRepository, mockGroupRepository1, mockProperties);
 
         //when
         var exception = catchThrowable(()-> toTest.createGroup(LocalDateTime.now(), 0));
 
         //then
-
         assertThat(exception)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Id do not exists");
-
     }
-
 
     @Test
     @DisplayName("should create brand new group from project")
@@ -106,11 +94,7 @@ class ProjectsServiceTest {
         //then
         assertThat(sizeBeforeCall + 1)
                 .isNotEqualTo(inMemoryGroupRepository().count());
-
-
-
     }
-
 
     private JobGroupsRepository groupRepositoryReturning(final boolean result) {
         var mockGroupRepository = mock(JobGroupsRepository.class);
@@ -141,7 +125,6 @@ class ProjectsServiceTest {
         public int count(){
             return map.values().size();
         }
-
 
         @Override
         public List<JobGroups> findAll() {
@@ -177,8 +160,5 @@ class ProjectsServiceTest {
                     .filter(jobGroups -> !jobGroups.isComplete())
                     .anyMatch(jobGroups -> jobGroups.getProjects() != null && jobGroups.getProjects().getId() == projectId);
         }
-
     }
-
-
 }
