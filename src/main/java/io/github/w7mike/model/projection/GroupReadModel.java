@@ -48,4 +48,12 @@ public class GroupReadModel {
     public void setDeadline(final LocalDateTime deadline) {
         this.deadline = deadline;
     }
+
+    public Set<GroupJobReadModel> getJobs() {
+        return jobs;
+    }
+
+    void setJobs(final Set<GroupJobReadModel> jobs) {
+        this.jobs = jobs;
+    }
 }
