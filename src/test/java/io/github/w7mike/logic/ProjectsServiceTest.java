@@ -86,7 +86,7 @@ class ProjectsServiceTest {
                 .thenReturn(Optional.of(project));
 
         InMemoryGroupRepository inMemoryGroupRepository = inMemoryGroupRepository();
-        int sizeBeforeCall = inMemoryGroupRepository().count();
+        int sizeBeforeCall = inMemoryGroupRepository.count();
         JobConfigurationProperties mockProperties = configurationReturning(true);
 
         var toTest = new ProjectsService(mockRepository, inMemoryGroupRepository, mockProperties);
@@ -100,7 +100,7 @@ class ProjectsServiceTest {
 
 
         assertThat(sizeBeforeCall + 1)
-                .isEqualTo(inMemoryGroupRepository().count());
+                .isEqualTo(inMemoryGroupRepository.count());
     }
 
     private Projects projectWith(String specification, Set<Integer> daysToDeadline){
