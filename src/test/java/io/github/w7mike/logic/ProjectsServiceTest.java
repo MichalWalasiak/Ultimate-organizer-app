@@ -97,10 +97,8 @@ class ProjectsServiceTest {
         //then
         assertThat(outcome.getSpecification()).isEqualTo("bar");
         assertThat(outcome.getDeadline()).isEqualTo(today.minusDays(1));
-
-
-        assertThat(sizeBeforeCall + 1)
-                .isEqualTo(inMemoryGroupRepository.count());
+        assertThat(outcome.getJobs()).allMatch(jobs -> jobs.getSpecification().equals("foo"));
+        assertThat(sizeBeforeCall + 1).isEqualTo(inMemoryGroupRepository.count());
     }
 
     private Projects projectWith(String specification, Set<Integer> daysToDeadline){
