@@ -92,16 +92,12 @@ class ProjectsServiceTest {
     void createGroup_configurationOk_projectsExists_createNewGroup(){
         //given
         var today = LocalDate.now().atStartOfDay();
-        //and
         var mockRepository = mock(ProjectRepository.class);
         when(mockRepository.findById(anyInt())).thenReturn(Optional.empty());
-        //and
         InMemoryGroupRepository inMemoryGroupRepository = inMemoryGroupRepository();
         int sizeBeforeCall = inMemoryGroupRepository().count();
-        //and
         JobConfigurationProperties mockProperties = configurationReturning(true);
 
-        //System Under test
         var toTest = new ProjectsService(mockRepository, inMemoryGroupRepository, mockProperties);
 
         //when
