@@ -95,8 +95,12 @@ class ProjectsServiceTest {
         GroupReadModel outcome = toTest.createGroup(today, 1);
 
         //then
+        assertThat(outcome.getSpecification()).isEqualTo("bar");
+        assertThat(outcome.getDeadline()).isEqualTo(today.minusDays(1));
+
+
         assertThat(sizeBeforeCall + 1)
-                .isNotEqualTo(inMemoryGroupRepository().count());
+                .isEqualTo(inMemoryGroupRepository().count());
     }
 
     private Projects projectWith(String specification, Set<Integer> daysToDeadline){
