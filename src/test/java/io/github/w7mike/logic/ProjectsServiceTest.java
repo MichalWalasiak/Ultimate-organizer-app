@@ -6,6 +6,7 @@ import io.github.w7mike.model.projection.GroupReadModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -153,11 +154,22 @@ class ProjectsServiceTest {
 
         @Override
         public JobGroups save(final JobGroups entity) {
-            if (entity.getId() == 0){
+            if (entity.getId() == null){
                 try {
-                    JobGroups.class.getDeclaredField("id").set(entity, ++index);
-                } catch (NoSuchFieldException | IllegalAccessException e) {
-                    throw new RuntimeException();
+                    Field field = null;
+                    try {
+                        field = JobGroups.class.getDeclaredField("id");
+                    } catch (NoSuchFieldException e) {
+                        try {
+                            field = JobGroups.class.getSuperclass().getDeclaredField("id");
+                        } catch (NoSuchFieldException e2) {
+                            e2.printStackTrace();
+                        }
+                    }
+                    field.setAccessible(true);
+                    field.set(entity, ++index);
+                }catch (IllegalAccessException e) {
+                    throw new RuntimeException(e.getMessage(), e);
                 }
             }
             map.put(entity.getId(), entity);
