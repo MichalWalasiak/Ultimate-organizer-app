@@ -1,8 +1,11 @@
 package io.github.w7mike.logic;
 
+import io.github.w7mike.model.JobGroupsRepository;
 import io.github.w7mike.model.JobRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -34,6 +37,19 @@ class JobGroupsServiceTest {
     @Test
     @DisplayName("Should throw IllegalArgumentException when group with given id do not exists")
     void toggleGroup_noGroups_throwsIllegalArgumentException(){
+        //given
+        var mockJobGroupRepository = mock(JobGroupsRepository.class);
+        when(mockJobGroupRepository.findById(anyInt())).thenReturn(Optional.empty());
+
+        var mockJobRepository = mock(JobRepository.class);
+        when(mockJobRepository.existsByCompleteIsFalseAndJobGroups_Id(anyInt())).thenReturn(false);
+
+        var toTest = new JobGroupsService(mockJobGroupRepository, mockJobRepository);
+
+        //when
+        var exception = catchThrowable(()-> toTest.toggleGroup(1));
+
+        //then
 
     }
 }
