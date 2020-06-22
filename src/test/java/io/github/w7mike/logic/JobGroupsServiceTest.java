@@ -31,7 +31,6 @@ class JobGroupsServiceTest {
         assertThat(exception)
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("contains uncompleted jobs");
-
     }
 
     @Test
@@ -52,7 +51,6 @@ class JobGroupsServiceTest {
         assertThat(exception)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("id does not exists");
-
     }
 
     @Test
@@ -74,8 +72,6 @@ class JobGroupsServiceTest {
         //then
         assertThat(group.isComplete()).isEqualTo(!beforeToggle);
         assertThat(group.isComplete()).isNotEqualTo(beforeToggle);
-
-
     }
 
     private JobRepository jobRepositoryReturns(final boolean outcome) {
