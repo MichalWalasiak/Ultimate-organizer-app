@@ -15,7 +15,7 @@ class JobGroupsServiceTest {
 
     @Test
     @DisplayName("Should Throw IllegalStateException when incomplete jobs exists")
-    void toggleGroup_incompleteGroups_throwsIllegalStateException(){
+    void toggleGroup_uncompletedJobs_throwsIllegalStateException(){
         //given
         var mockJobRepository = mock(JobRepository.class);
         when(mockJobRepository.existsByCompleteIsFalseAndJobGroups_Id(anyInt())).thenReturn(true);
