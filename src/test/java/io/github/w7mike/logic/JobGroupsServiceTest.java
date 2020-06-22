@@ -1,5 +1,6 @@
 package io.github.w7mike.logic;
 
+import io.github.w7mike.model.JobGroups;
 import io.github.w7mike.model.JobGroupsRepository;
 import io.github.w7mike.model.JobRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -57,6 +58,19 @@ class JobGroupsServiceTest {
     @Test
     @DisplayName("Should change group status to incomplete")
     void toggleGroup_groupsComplete_groupExists_changeToIncomplete(){
+        //given
+        JobRepository mockJobRepository = jobRepositoryReturns(false);
+        var group = new JobGroups();
+        var beforeToggle = group.isComplete();
+
+        var mockJobGroupRepository  = mock(JobGroupsRepository.class);
+        when(mockJobGroupRepository.findById(anyInt())).thenReturn(Optional.of(group));
+
+        var toTest = new JobGroupsService(mockJobGroupRepository, mockJobRepository);
+
+        //when
+        toTest.toggleGroup(0);
+        //then
 
     }
 
