@@ -30,4 +30,10 @@ class JobGroupsServiceTest {
                 .hasMessageContaining("contains uncompleted jobs");
 
     }
+
+    @Test
+    @DisplayName("Should throw IllegalArgumentException when group with given id do not exists")
+    void toggleGroup_noGroups_throwsIllegalArgumentException(){
+
+    }
 }
