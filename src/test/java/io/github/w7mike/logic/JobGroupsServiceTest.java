@@ -70,7 +70,11 @@ class JobGroupsServiceTest {
 
         //when
         toTest.toggleGroup(0);
+
         //then
+        assertThat(group.isComplete()).isEqualTo(!beforeToggle);
+        assertThat(group.isComplete()).isNotEqualTo(beforeToggle);
+
 
     }
 
