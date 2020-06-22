@@ -54,6 +54,12 @@ class JobGroupsServiceTest {
 
     }
 
+    @Test
+    @DisplayName("Should change group status to incomplete")
+    void toggleGroup_groupsComplete_groupExists_changeToIncomplete(){
+
+    }
+
     private JobRepository jobRepositoryReturns(final boolean outcome) {
         var mockJobRepository = mock(JobRepository.class);
         when(mockJobRepository.existsByCompleteIsFalseAndJobGroups_Id(anyInt())).thenReturn(outcome);
