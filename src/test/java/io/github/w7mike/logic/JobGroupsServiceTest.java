@@ -29,7 +29,5 @@ class JobGroupsServiceTest {
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("contains uncompleted jobs");
 
-
     }
-
 }
