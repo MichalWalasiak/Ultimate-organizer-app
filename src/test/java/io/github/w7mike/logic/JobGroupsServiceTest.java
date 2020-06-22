@@ -20,8 +20,7 @@ class JobGroupsServiceTest {
     @DisplayName("Should Throw IllegalStateException when incomplete jobs exists")
     void toggleGroup_uncompletedJobs_throwsIllegalStateException(){
         //given
-        var mockJobRepository = mock(JobRepository.class);
-        when(mockJobRepository.existsByCompleteIsFalseAndJobGroups_Id(anyInt())).thenReturn(true);
+        JobRepository mockJobRepository = jobRepositoryReturns(true);
 
         var toTest = new JobGroupsService(null, mockJobRepository);
         //when
@@ -41,8 +40,7 @@ class JobGroupsServiceTest {
         var mockJobGroupRepository = mock(JobGroupsRepository.class);
         when(mockJobGroupRepository.findById(anyInt())).thenReturn(Optional.empty());
 
-        var mockJobRepository = mock(JobRepository.class);
-        when(mockJobRepository.existsByCompleteIsFalseAndJobGroups_Id(anyInt())).thenReturn(false);
+        JobRepository mockJobRepository = jobRepositoryReturns(false);
 
         var toTest = new JobGroupsService(mockJobGroupRepository, mockJobRepository);
 
@@ -50,6 +48,15 @@ class JobGroupsServiceTest {
         var exception = catchThrowable(()-> toTest.toggleGroup(1));
 
         //then
+        assertThat(exception)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("id does not exists");
 
+    }
+
+    private JobRepository jobRepositoryReturns(final boolean outcome) {
+        var mockJobRepository = mock(JobRepository.class);
+        when(mockJobRepository.existsByCompleteIsFalseAndJobGroups_Id(anyInt())).thenReturn(outcome);
+        return mockJobRepository;
     }
 }
