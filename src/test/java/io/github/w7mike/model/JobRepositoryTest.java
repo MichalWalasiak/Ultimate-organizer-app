@@ -20,7 +20,7 @@ public class JobRepositoryTest implements JobRepository {
 
     @Override
     public Optional<Job> findById(final Integer id) {
-        return Optional.empty();
+        return Optional.ofNullable(jobs.get(id));
     }
 
     @Override
