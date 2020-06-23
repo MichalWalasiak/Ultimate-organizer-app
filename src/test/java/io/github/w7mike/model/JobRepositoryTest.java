@@ -25,7 +25,7 @@ public class JobRepositoryTest implements JobRepository {
 
     @Override
     public boolean existsById(final Integer id) {
-        return false;
+        return jobs.containsKey(id);
     }
 
     @Override
