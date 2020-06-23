@@ -40,7 +40,7 @@ public class JobRepositoryTest implements JobRepository {
 
     @Override
     public Job save(final Job entity) {
-        return null;
+        return jobs.put(jobs.size() + 1, entity);
     }
 
     @Override
