@@ -1,0 +1,20 @@
+package io.github.w7mike.logic;
+
+import io.github.w7mike.JobConfigurationProperties;
+import io.github.w7mike.model.JobGroupsRepository;
+import io.github.w7mike.model.ProjectRepository;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class LogicConfiguration {
+
+    @Bean
+    public ProjectsService service(
+            final ProjectRepository repository,
+            final JobGroupsRepository groupsRepository,
+            final JobConfigurationProperties properties
+    ){
+        return new ProjectsService(repository, groupsRepository, properties);
+    }
+}
