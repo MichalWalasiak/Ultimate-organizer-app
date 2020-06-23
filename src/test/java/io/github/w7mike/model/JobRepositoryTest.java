@@ -3,10 +3,13 @@ package io.github.w7mike.model;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class JobRepositoryTest implements JobRepository {
+    private Map<Integer, Job> jobs = new HashMap<>();
 
     @Override
     public List<Job> findAll() {
