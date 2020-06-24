@@ -9,10 +9,18 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.sql.DataSource;
 import java.util.*;
 
 @Configuration
 class TestConfiguration {
+
+    @Bean
+    @Primary
+    @Profile("!integration")
+    DataSource e2eTestDataSource(){
+
+    }
 
     @Bean
     @Primary
