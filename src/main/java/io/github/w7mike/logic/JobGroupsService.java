@@ -16,21 +16,21 @@ import java.util.stream.Collectors;
 @RequestScope
 public class JobGroupsService {
 
-    private JobGroupsRepository jobGroupsRepository;
+    private JobGroupsRepository groupsRepository;
     private JobRepository jobRepository;
 
-    public JobGroupsService(final JobGroupsRepository jobGroupsRepository, final JobRepository jobRepository) {
-        this.jobGroupsRepository = jobGroupsRepository;
+    public JobGroupsService(final JobGroupsRepository groupsRepository, final JobRepository jobRepository) {
+        this.groupsRepository = groupsRepository;
         this.jobRepository = jobRepository;
     }
 
     public GroupReadModel createGroup(final GroupWriteModel source){
-        JobGroups result = jobGroupsRepository.save(source.toGroup());
+        JobGroups result = groupsRepository.save(source.toGroup());
         return new GroupReadModel(result);
     }
 
     public Set<GroupReadModel> readAll(){
-        return jobGroupsRepository.findAll()
+        return groupsRepository.findAll()
                 .stream()
                 .map(GroupReadModel::new)
                 .collect(Collectors.toSet());
@@ -41,9 +41,9 @@ public class JobGroupsService {
             throw new IllegalStateException("Group contains uncompleted jobs, please complete all jobs first");
         }
 
-        JobGroups result = jobGroupsRepository.findById(groupId)
+        JobGroups result = groupsRepository.findById(groupId)
                 .orElseThrow(()-> new IllegalArgumentException("Group with given id does not exists"));
         result.setComplete(!result.isComplete());
-        jobGroupsRepository.save(result);
+        groupsRepository.save(result);
     }
 }
