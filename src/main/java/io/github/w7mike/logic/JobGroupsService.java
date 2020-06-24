@@ -6,14 +6,10 @@ import io.github.w7mike.model.JobGroupsRepository;
 import io.github.w7mike.model.JobRepository;
 import io.github.w7mike.model.projection.GroupReadModel;
 import io.github.w7mike.model.projection.GroupWriteModel;
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Service
-@RequestScope
 public class JobGroupsService {
 
     private JobGroupsRepository groupsRepository;
