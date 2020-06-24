@@ -25,6 +25,7 @@ class JobControllerE2ETest {
     @Test
     void httpGet_returnAllJobs(){
         // given
+        var initial = jobRepository.findAll().size();
         jobRepository.save(new Job("foo", LocalDateTime.now()));
         jobRepository.save(new Job("bar", LocalDateTime.now()));
 
@@ -32,6 +33,6 @@ class JobControllerE2ETest {
         Job[] outcome = restTemplate.getForObject("http://localhost:" + port + "/jobs", Job[].class);
 
         // then
-        assertThat(outcome).hasSize(2);
+        assertThat(outcome).hasSize(initial + 2);
     }
 }
