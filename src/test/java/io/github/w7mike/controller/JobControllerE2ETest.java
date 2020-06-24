@@ -10,6 +10,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 import java.time.LocalDateTime;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -32,7 +33,9 @@ class JobControllerE2ETest {
 
         // when
         Job[] outcome = restTemplate.getForObject("http://localhost:" + port + "/jobs", Job[].class);
+
         // then
+        assertThat(outcome).hasSize(2);
     }
 
 
