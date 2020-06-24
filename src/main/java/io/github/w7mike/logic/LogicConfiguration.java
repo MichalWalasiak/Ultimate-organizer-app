@@ -11,10 +11,10 @@ public class LogicConfiguration {
 
     @Bean
     public ProjectsService service(
-            final ProjectRepository repository,
+            final ProjectRepository projectRepository,
             final JobGroupsRepository groupsRepository,
             final JobConfigurationProperties properties
     ){
-        return new ProjectsService(repository, groupsRepository, properties);
+        return new ProjectsService(projectRepository, groupsRepository, properties);
     }
 }
