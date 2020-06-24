@@ -2,9 +2,7 @@ package io.github.w7mike.logic;
 
 import io.github.w7mike.JobConfigurationProperties;
 import io.github.w7mike.model.*;
-import io.github.w7mike.model.projection.GroupJobReadModel;
 import io.github.w7mike.model.projection.GroupReadModel;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,22 +11,22 @@ import java.util.stream.Collectors;
 
 public class ProjectsService {
 
-    private ProjectRepository repository;
+    private ProjectRepository projectRepository;
     private JobGroupsRepository groupsRepository;
     private JobConfigurationProperties properties;
 
-    public ProjectsService(final ProjectRepository repository, final JobGroupsRepository groupsRepository, final JobConfigurationProperties properties) {
-        this.repository = repository;
+    public ProjectsService(final ProjectRepository projectRepository, final JobGroupsRepository groupsRepository, final JobConfigurationProperties properties) {
+        this.projectRepository = projectRepository;
         this.groupsRepository = groupsRepository;
         this.properties = properties;
     }
 
     public List<Projects> readAll(){
-        return repository.findAll();
+        return projectRepository.findAll();
     }
 
     public Projects createProject(final Projects toCreate){
-        return repository.save(toCreate);
+        return projectRepository.save(toCreate);
     }
 
     public GroupReadModel createGroup(LocalDateTime deadline, Integer projectId){
@@ -37,7 +35,7 @@ public class ProjectsService {
             throw new IllegalStateException("only one incomplete group in project is allowed");
         }
 
-        JobGroups result = repository.findById(projectId)
+        JobGroups result = projectRepository.findById(projectId)
                 .map(projects -> {
                     var target = new JobGroups();
                     target.setSpecification(projects.getSpecification());
