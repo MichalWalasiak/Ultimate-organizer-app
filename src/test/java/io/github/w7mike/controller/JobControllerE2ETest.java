@@ -12,7 +12,6 @@ import org.springframework.test.context.ActiveProfiles;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("integration")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -20,10 +19,8 @@ class JobControllerE2ETest {
 
     @LocalServerPort
     private int port;
-
     @Autowired
     private TestRestTemplate restTemplate;
-
     @Autowired
     JobRepository jobRepository;
 
@@ -39,6 +36,4 @@ class JobControllerE2ETest {
         // then
         assertThat(outcome).hasSize(2);
     }
-
-
 }
