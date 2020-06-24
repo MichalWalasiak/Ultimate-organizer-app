@@ -6,31 +6,27 @@ import io.github.w7mike.model.JobGroupsRepository;
 import io.github.w7mike.model.JobRepository;
 import io.github.w7mike.model.projection.GroupReadModel;
 import io.github.w7mike.model.projection.GroupWriteModel;
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Service
-@RequestScope
 public class JobGroupsService {
 
-    private JobGroupsRepository repository;
+    private JobGroupsRepository groupsRepository;
     private JobRepository jobRepository;
 
-    public JobGroupsService(final JobGroupsRepository repository, final JobRepository jobRepository) {
-        this.repository = repository;
+    public JobGroupsService(final JobGroupsRepository groupsRepository, final JobRepository jobRepository) {
+        this.groupsRepository = groupsRepository;
         this.jobRepository = jobRepository;
     }
 
     public GroupReadModel createGroup(final GroupWriteModel source){
-        JobGroups result = repository.save(source.toGroup());
+        JobGroups result = groupsRepository.save(source.toGroup());
         return new GroupReadModel(result);
     }
 
     public Set<GroupReadModel> readAll(){
-        return repository.findAll()
+        return groupsRepository.findAll()
                 .stream()
                 .map(GroupReadModel::new)
                 .collect(Collectors.toSet());
@@ -41,9 +37,9 @@ public class JobGroupsService {
             throw new IllegalStateException("Group contains uncompleted jobs, please complete all jobs first");
         }
 
-        JobGroups result = repository.findById(groupId)
+        JobGroups result = groupsRepository.findById(groupId)
                 .orElseThrow(()-> new IllegalArgumentException("Group with given id does not exists"));
         result.setComplete(!result.isComplete());
-        repository.save(result);
+        groupsRepository.save(result);
     }
 }
