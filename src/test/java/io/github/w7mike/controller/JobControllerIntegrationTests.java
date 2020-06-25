@@ -36,9 +36,5 @@ public class JobControllerIntegrationTests {
         // when + then
         mockMvc.perform(get("/jobs/" + id))
                 .andExpect(status().is2xxSuccessful());
-
-
-
-
     }
 }
