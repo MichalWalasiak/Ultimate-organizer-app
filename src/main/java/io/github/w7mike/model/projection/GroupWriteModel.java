@@ -30,7 +30,7 @@ public class GroupWriteModel {
         var result = new JobGroups();
         result.setSpecification(specification);
         result.setJobs(jobs.stream()
-                            .map(GroupJobWriteModel::doJob)
+                            .map(outcome -> outcome.doJob(result))
                             .collect(Collectors.toSet()));
 
         return result;

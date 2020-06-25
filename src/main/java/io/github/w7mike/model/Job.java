@@ -20,8 +20,16 @@ public class Job extends BaseJob {
     }
 
     public Job(final String specification, LocalDateTime deadline) {
+        this(specification, deadline, null);
+
+    }
+
+    public Job(final String specification, LocalDateTime deadline, JobGroups jobGroups) {
         super(specification);
         this.deadline = deadline;
+        if (jobGroups != null){
+            this.jobGroups = jobGroups;
+        }
 
     }
 
