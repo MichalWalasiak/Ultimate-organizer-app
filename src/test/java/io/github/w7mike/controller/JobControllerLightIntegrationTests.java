@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(JobRepository.class)
+@WebMvcTest(JobController.class)
 public class JobControllerLightIntegrationTests {
 
     @Autowired
@@ -38,9 +38,8 @@ public class JobControllerLightIntegrationTests {
         when(jobRepository.findById(anyInt())).thenReturn(Optional.of(new Job("foo", LocalDateTime.now())));
 
         // when + then
-        mockMvc.perform(get("/jobs/123"))
+        mockMvc.perform(get("/jobs/1"))
                 .andDo(print())
-                .andExpect(status().is2xxSuccessful())
                 .andExpect(content().string(containsString("\"specification\":\"foo\"")));
 
 
