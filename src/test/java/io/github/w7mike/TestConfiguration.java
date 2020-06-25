@@ -1,6 +1,7 @@
 package io.github.w7mike;
 
 import io.github.w7mike.model.Job;
+import io.github.w7mike.model.JobGroups;
 import io.github.w7mike.model.JobRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Field;
 import java.util.*;
 
 @Configuration
@@ -64,12 +66,29 @@ class TestConfiguration {
 
             @Override
             public Job save(final Job entity) {
-                return jobs.put(jobs.size() + 1, entity);
+                int key = jobs.size() + 1;
+                try {
+                    Field field = null;
+                    try {
+                        field = Job.class.getDeclaredField("id");
+                    } catch (NoSuchFieldException e) {
+                        try {
+                            field = Job.class.getSuperclass().getDeclaredField("id");
+                        } catch (NoSuchFieldException e2) {
+                            e2.printStackTrace();
+                        }
+                    }
+                    field.setAccessible(true);
+                    field.set(entity, key);
+                }catch (IllegalAccessException e) {
+                    throw new RuntimeException(e.getMessage(), e);
+                }
+                jobs.put(key, entity);
+                return jobs.get(key);
             }
 
             @Override
             public void deleteById(final Integer id) {
-
             }
         };
     }
