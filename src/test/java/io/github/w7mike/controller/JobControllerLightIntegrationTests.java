@@ -13,8 +13,15 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.contains;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(JobRepository.class)
@@ -29,10 +36,13 @@ public class JobControllerLightIntegrationTests {
     @DisplayName("should return given Job")
     void httpGet_returnsGivenJob() throws Exception {
         // given
-        var id = jobRepository.save(new Job("foo", LocalDateTime.now())).getId();
+        when(jobRepository.findById(anyInt())).thenReturn(Optional.of(new Job("foo", LocalDateTime.now())));
 
         // when + then
-        mockMvc.perform(get("/jobs/" + id))
-                .andExpect(status().is2xxSuccessful());
+        mockMvc.perform(get("/jobs/123"))
+                .andDo(print())
+                .andExpect(content().string(containsString("\"specification\":\"foo\"")));
+
+
     }
 }
