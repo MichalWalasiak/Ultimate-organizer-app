@@ -1,6 +1,8 @@
 package io.github.w7mike.controller;
 
 import io.github.w7mike.model.JobRepository;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,4 +16,10 @@ public class JobControllerIntegrationTests {
     private MockMvc mockMvc;
     @Autowired
     private JobRepository jobRepository;
+
+    @Test
+    @DisplayName("should return given Job")
+    void httpGet_returnsGivenJob() {
+
+    }
 }
