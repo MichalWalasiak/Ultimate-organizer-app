@@ -13,11 +13,13 @@ public class ProjectsService {
 
     private ProjectRepository projectRepository;
     private JobGroupsRepository groupsRepository;
+    private JobGroupsService service;
     private JobConfigurationProperties properties;
 
-    public ProjectsService(final ProjectRepository projectRepository, final JobGroupsRepository groupsRepository, final JobConfigurationProperties properties) {
+    public ProjectsService(final ProjectRepository projectRepository, final JobGroupsRepository groupsRepository, final JobGroupsService service, final JobConfigurationProperties properties) {
         this.projectRepository = projectRepository;
         this.groupsRepository = groupsRepository;
+        this.service = service;
         this.properties = properties;
     }
 
