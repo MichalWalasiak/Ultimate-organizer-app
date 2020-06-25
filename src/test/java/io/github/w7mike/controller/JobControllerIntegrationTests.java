@@ -29,10 +29,10 @@ public class JobControllerIntegrationTests {
     @DisplayName("should return given Job")
     void httpGet_returnsGivenJob() throws Exception {
         // given
-        jobRepository.save(new Job("foo", LocalDateTime.now()));
+        var id = jobRepository.save(new Job("foo", LocalDateTime.now())).getId();
 
         // when + then
-        mockMvc.perform(get("/jobs/"))
+        mockMvc.perform(get("/jobs/" + id))
                 .andExpect(status().is2xxSuccessful());
 
 
