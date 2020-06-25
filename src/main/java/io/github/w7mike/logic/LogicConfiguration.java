@@ -14,9 +14,10 @@ public class LogicConfiguration {
     public ProjectsService service(
             final ProjectRepository projectRepository,
             final JobGroupsRepository groupsRepository,
+            final JobGroupsService service,
             final JobConfigurationProperties properties
     ){
-        return new ProjectsService(projectRepository, groupsRepository, properties);
+        return new ProjectsService(projectRepository, groupsRepository, service, properties);
     }
 
     @Bean
