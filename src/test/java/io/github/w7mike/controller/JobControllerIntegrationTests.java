@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDateTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -33,6 +34,7 @@ public class JobControllerIntegrationTests {
 
         // when + then
         mockMvc.perform(get("/jobs/" + id))
+                .andDo(print())
                 .andExpect(status().is2xxSuccessful());
     }
 }
