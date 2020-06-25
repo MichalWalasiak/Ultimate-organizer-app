@@ -27,7 +27,7 @@ public class JobControllerIntegrationTests {
 
     @Test
     @DisplayName("should return given Job")
-    void httpGet_returnsGivenJob() {
+    void httpGet_returnsGivenJob() throws Exception {
         // given
         jobRepository.save(new Job("foo", LocalDateTime.now()));
 
