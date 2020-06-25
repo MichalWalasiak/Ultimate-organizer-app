@@ -64,7 +64,9 @@ class TestConfiguration {
 
             @Override
             public Job save(final Job entity) {
-                return jobs.put(jobs.size() + 1, entity);
+                int key = jobs.size() + 1;
+                jobs.put(key, entity);
+                return jobs.get(key);
             }
 
             @Override
