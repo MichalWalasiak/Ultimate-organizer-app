@@ -25,7 +25,7 @@ class ProjectsServiceTest {
         JobGroupsRepository mockGroupRepository = groupRepositoryReturning(true);
         JobConfigurationProperties mockProperties = configurationReturning(false);
 
-        var toTest = new ProjectsService(null, mockGroupRepository, mockProperties);
+        var toTest = new ProjectsService(null, mockGroupRepository, null, mockProperties);
 
         //when
         var exception = catchThrowable(()-> toTest.createGroup(LocalDateTime.now(), 0));
@@ -44,7 +44,7 @@ class ProjectsServiceTest {
         when(mockRepository.findById(anyInt())).thenReturn(Optional.empty());
         JobConfigurationProperties mockProperties = configurationReturning(true);
 
-        var toTest = new ProjectsService(mockRepository, null, mockProperties);
+        var toTest = new ProjectsService(mockRepository, null, null, mockProperties);
 
         //when
         var exception = catchThrowable(()-> toTest.createGroup(LocalDateTime.now(), 0));
@@ -64,7 +64,7 @@ class ProjectsServiceTest {
         JobGroupsRepository mockGroupRepository1 = groupRepositoryReturning(true);
         JobConfigurationProperties mockProperties = configurationReturning(true);
 
-        var toTest = new ProjectsService(mockRepository, mockGroupRepository1, mockProperties);
+        var toTest = new ProjectsService(mockRepository, mockGroupRepository1, null, mockProperties);
 
         //when
         var exception = catchThrowable(()-> toTest.createGroup(LocalDateTime.now(), 0));
@@ -86,10 +86,12 @@ class ProjectsServiceTest {
                 .thenReturn(Optional.of(project));
 
         InMemoryGroupRepository inMemoryGroupRepository = inMemoryGroupRepository();
+        var serviceInMemoryGroupRepository = proxyGroupRepository(inMemoryGroupRepository);
+
         int sizeBeforeCall = inMemoryGroupRepository.count();
         JobConfigurationProperties mockProperties = configurationReturning(true);
 
-        var toTest = new ProjectsService(mockRepository, inMemoryGroupRepository, mockProperties);
+        var toTest = new ProjectsService(mockRepository, inMemoryGroupRepository, serviceInMemoryGroupRepository, mockProperties);
 
         //when
         GroupReadModel outcome = toTest.createGroup(today, 1);
@@ -99,6 +101,10 @@ class ProjectsServiceTest {
         assertThat(outcome.getDeadline()).isEqualTo(today.minusDays(1));
         assertThat(outcome.getJobs()).allMatch(jobs -> jobs.getSpecification().equals("foo"));
         assertThat(sizeBeforeCall + 1).isEqualTo(inMemoryGroupRepository.count());
+    }
+
+    private JobGroupsService proxyGroupRepository(final InMemoryGroupRepository inMemoryGroupRepository) {
+        return new JobGroupsService(inMemoryGroupRepository, null);
     }
 
     private Projects projectWith(String specification, Set<Integer> daysToDeadline){

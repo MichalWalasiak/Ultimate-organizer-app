@@ -37,4 +37,17 @@ public class JobControllerIntegrationTests {
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful());
     }
+
+    @Test
+    @DisplayName("Should return all dogs")
+    void httpGet_returnsAllJobs() throws Exception {
+        // given
+        jobRepository.save(new Job("foo", LocalDateTime.now()));
+        jobRepository.save(new Job("bar", LocalDateTime.now()));
+
+        // when + then
+        mockMvc.perform(get("/jobs"))
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful());
+    }
 }
