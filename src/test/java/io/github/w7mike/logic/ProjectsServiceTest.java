@@ -86,7 +86,8 @@ class ProjectsServiceTest {
                 .thenReturn(Optional.of(project));
 
         InMemoryGroupRepository inMemoryGroupRepository = inMemoryGroupRepository();
-        var serviceInMemoryGroupRepository = new JobGroupsService(inMemoryGroupRepository, null);
+        var serviceInMemoryGroupRepository = proxyGroupRepository(inMemoryGroupRepository);
+
         int sizeBeforeCall = inMemoryGroupRepository.count();
         JobConfigurationProperties mockProperties = configurationReturning(true);
 
@@ -100,6 +101,10 @@ class ProjectsServiceTest {
         assertThat(outcome.getDeadline()).isEqualTo(today.minusDays(1));
         assertThat(outcome.getJobs()).allMatch(jobs -> jobs.getSpecification().equals("foo"));
         assertThat(sizeBeforeCall + 1).isEqualTo(inMemoryGroupRepository.count());
+    }
+
+    private JobGroupsService proxyGroupRepository(final InMemoryGroupRepository inMemoryGroupRepository) {
+        return new JobGroupsService(inMemoryGroupRepository, null);
     }
 
     private Projects projectWith(String specification, Set<Integer> daysToDeadline){
