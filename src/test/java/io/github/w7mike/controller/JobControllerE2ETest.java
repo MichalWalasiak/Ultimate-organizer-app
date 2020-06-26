@@ -2,6 +2,7 @@ package io.github.w7mike.controller;
 
 import io.github.w7mike.model.Job;
 import io.github.w7mike.model.JobRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +24,7 @@ class JobControllerE2ETest {
     JobRepository jobRepository;
 
     @Test
+    @DisplayName("Should return correct size of Job Array")
     void httpGet_returnAllJobs(){
         // given
         var initial = jobRepository.findAll().size();
@@ -37,6 +39,7 @@ class JobControllerE2ETest {
     }
 
     @Test
+    @DisplayName("Should compere fields in data base after saving Job")
     void httpPost_savesJob() {
         //given
         Job jobToSave = jobRepository.save(new Job("foo", LocalDateTime.now()));
