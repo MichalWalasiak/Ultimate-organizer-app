@@ -49,5 +49,6 @@ class JobControllerE2ETest {
 
         //then
         assertThat(job).isEqualToComparingOnlyGivenFields(jobToSave, "specification", "deadline");
+        assertThat(job).isExactlyInstanceOf(Job.class);
     }
 }
