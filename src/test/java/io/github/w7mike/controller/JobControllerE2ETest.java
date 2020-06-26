@@ -35,4 +35,17 @@ class JobControllerE2ETest {
         // then
         assertThat(outcome).hasSize(initial + 2);
     }
+
+    @Test
+    void httpPost_savesJob() {
+        //given
+        Job jobToSave = jobRepository.save(new Job("foo", LocalDateTime.now()));
+
+        //when
+        Job job = restTemplate.postForObject("http://localhost:" + port + "/jobs", jobToSave, Job.class);
+
+        //then
+        assertThat(job).isEqualToComparingOnlyGivenFields(jobToSave, "specification", "deadline");
+
+    }
 }
