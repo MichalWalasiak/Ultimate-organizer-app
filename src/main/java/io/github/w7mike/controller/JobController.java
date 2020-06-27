@@ -50,6 +50,10 @@ class JobController {
                 .orElse(ResponseEntity.notFound().build());
 
     }
+    @GetMapping("/search/complete")
+    ResponseEntity<List<Job>> readCompleteJobs(@RequestParam(defaultValue = "true") boolean status) {
+            return ResponseEntity.ok(repository.findByComplete(status));
+    }
 
     @PutMapping("/{id}")
     ResponseEntity<Job> updateJob(@PathVariable int id, @RequestBody Job jobToUpdate){
