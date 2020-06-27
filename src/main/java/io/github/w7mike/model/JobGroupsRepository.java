@@ -13,5 +13,5 @@ public interface JobGroupsRepository {
 
     void deleteById(Integer id);
 
-    boolean existsByCompleteIsFalseAndProjects_Id(Integer projectId);
+    boolean existsByCompleteIsFalseAndProject_Id(Integer projectId);
 }
