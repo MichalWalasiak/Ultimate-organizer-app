@@ -14,6 +14,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@RequestMapping("/jobs")
 class JobController {
 
     private final Logger logger = LoggerFactory.getLogger(JobController.class);
@@ -24,25 +25,25 @@ class JobController {
         this.repository = repository;
     }
 
-    @PostMapping("/jobs")
+    @PostMapping
     ResponseEntity<Job> createJob(@RequestBody @Valid Job newJob){
         Job result = repository.save(newJob);
         return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
 
-    @GetMapping(value = "/jobs", params = {"!sort", "!page", "!size"})
+    @GetMapping(params = {"!sort", "!page", "!size"})
     ResponseEntity<List<Job>> readAllJobs(){
         logger.warn("You are going to read all available Jobs");
         return ResponseEntity.ok(repository.findAll());
     }
 
-    @GetMapping("/jobs")
+    @GetMapping
     ResponseEntity<List<Job>> readAllJobs(Pageable page){
         logger.info("custom pagable");
         return ResponseEntity.ok(repository.findAll(page).getContent());
     }
 
-    @GetMapping("/jobs/{id}")
+    @GetMapping("/{id}")
     ResponseEntity<Job>readSelectedJob(@PathVariable int id){
         return repository.findById(id)
                 .map(job -> ResponseEntity.ok(job))
@@ -50,7 +51,7 @@ class JobController {
 
     }
 
-    @PutMapping("/jobs/{id}")
+    @PutMapping("/{id}")
     ResponseEntity<Job> updateJob(@PathVariable int id, @RequestBody Job jobToUpdate){
             if(!repository.existsById(id)){
                 return ResponseEntity.notFound().build();
@@ -65,7 +66,7 @@ class JobController {
     }
 
     @Transactional
-    @PatchMapping("/jobs/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Job> toggleJob(@PathVariable int id){
         if(!repository.existsById(id)){
             return ResponseEntity.notFound().build();
@@ -79,7 +80,7 @@ class JobController {
         return ResponseEntity.ok(job);
     }
 
-    @DeleteMapping("/jobs/{id}")
+    @DeleteMapping("/{id}")
     ResponseEntity<Job> removeJob(@PathVariable int id){
         if (!repository.existsById(id)){
             return ResponseEntity.notFound().build();
