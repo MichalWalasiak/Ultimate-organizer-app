@@ -37,7 +37,7 @@ public class ProjectsService {
 
     public GroupReadModel createGroup(LocalDateTime deadline, Integer projectId){
 
-        if (!properties.getTemplate().isAllowMultipleJobs() && groupsRepository.existsByCompleteIsFalseAndProjects_Id(projectId)){
+        if (!properties.getTemplate().isAllowMultipleJobs() && groupsRepository.existsByCompleteIsFalseAndProject_Id(projectId)){
             throw new IllegalStateException("only one incomplete group in project is allowed");
         }
 
