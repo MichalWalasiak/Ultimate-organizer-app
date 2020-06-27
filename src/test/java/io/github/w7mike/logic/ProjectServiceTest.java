@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
-class ProjectsServiceTest {
+class ProjectServiceTest {
 
     @Test
     @DisplayName("Should throw IllegalStateException when properties allows one groups and other incomplete groups exist")
@@ -107,7 +107,7 @@ class ProjectsServiceTest {
         return new JobGroupsService(inMemoryGroupRepository, null);
     }
 
-    private Projects projectWith(String specification, Set<Integer> daysToDeadline){
+    private Project projectWith(String specification, Set<Integer> daysToDeadline){
             Set<ProjectSteps> steps = daysToDeadline.stream()
                     .map(days ->{
                         var step = mock(ProjectSteps.class);
@@ -116,7 +116,7 @@ class ProjectsServiceTest {
                     return step;
                     }).collect(Collectors.toSet());
 
-            var outcome = mock(Projects.class);
+            var outcome = mock(Project.class);
             when(outcome.getSpecification()).thenReturn(specification);
             when(outcome.getSteps()).thenReturn(steps);
 
@@ -196,7 +196,7 @@ class ProjectsServiceTest {
         public boolean existsByCompleteIsFalseAndProjects_Id(final Integer projectId) {
             return map.values().stream()
                     .filter(jobGroups -> !jobGroups.isComplete())
-                    .anyMatch(jobGroups -> jobGroups.getProjects() != null && jobGroups.getProjects().getId() == projectId);
+                    .anyMatch(jobGroups -> jobGroups.getProject() != null && jobGroups.getProject().getId() == projectId);
         }
     }
 }

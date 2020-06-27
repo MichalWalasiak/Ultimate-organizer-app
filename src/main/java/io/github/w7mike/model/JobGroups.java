@@ -1,11 +1,7 @@
 package io.github.w7mike.model;
 
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -17,7 +13,7 @@ public class JobGroups extends BaseJob {
 
     @ManyToOne
     @JoinColumn(name = "projects_id")
-    private Projects projects;
+    private Project project;
 
     public JobGroups() {
     }
@@ -30,12 +26,12 @@ public class JobGroups extends BaseJob {
         this.jobs = jobSet;
     }
 
-    public Projects getProjects() {
-        return projects;
+    public Project getProject() {
+        return project;
     }
 
-    public void setProjects(final Projects projects) {
-        this.projects = projects;
+    public void setProject(final Project project) {
+        this.project = project;
     }
 }
 

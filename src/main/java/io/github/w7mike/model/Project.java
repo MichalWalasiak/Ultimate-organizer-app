@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "projects")
-public class Projects {
+public class Project {
 
     @Id
     @GeneratedValue(generator = "inc")
@@ -24,7 +24,7 @@ public class Projects {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projects")
     private Set<ProjectSteps> steps;
 
-    public Projects() {
+    public Project() {
     }
 
     public Integer getId() {
