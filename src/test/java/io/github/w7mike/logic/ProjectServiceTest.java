@@ -125,7 +125,7 @@ class ProjectServiceTest {
 
     private JobGroupsRepository groupRepositoryReturning(final boolean result) {
         var mockGroupRepository = mock(JobGroupsRepository.class);
-        when(mockGroupRepository.existsByCompleteIsFalseAndProjects_Id(anyInt())).thenReturn(result);
+        when(mockGroupRepository.existsByCompleteIsFalseAndProject_Id(anyInt())).thenReturn(result);
         return mockGroupRepository;
     }
 
@@ -193,7 +193,7 @@ class ProjectServiceTest {
         }
 
         @Override
-        public boolean existsByCompleteIsFalseAndProjects_Id(final Integer projectId) {
+        public boolean existsByCompleteIsFalseAndProject_Id(final Integer projectId) {
             return map.values().stream()
                     .filter(jobGroups -> !jobGroups.isComplete())
                     .anyMatch(jobGroups -> jobGroups.getProject() != null && jobGroups.getProject().getId() == projectId);
