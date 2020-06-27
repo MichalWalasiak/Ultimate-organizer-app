@@ -18,10 +18,10 @@ public class Project {
     @NotBlank(message = "project specification must be not null")
     private String specification;
 
-    @OneToMany(mappedBy = "projects")
+    @OneToMany(mappedBy = "project")
     private Set<JobGroups> groups;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projects")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     private Set<ProjectSteps> steps;
 
     public Project() {
