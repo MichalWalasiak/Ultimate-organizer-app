@@ -16,5 +16,5 @@ public interface SqlJobGroupsRepository extends JobGroupsRepository, JpaReposito
     List<JobGroups> findAll();
 
     @Override
-    boolean existsByCompleteIsFalseAndProjects_Id(Integer projectId);
+    boolean existsByCompleteIsFalseAndProject_Id(Integer projectId);
 }
