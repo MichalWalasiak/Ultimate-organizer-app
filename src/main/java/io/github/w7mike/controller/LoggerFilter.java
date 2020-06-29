@@ -19,5 +19,6 @@ public class LoggerFilter implements Filter {
             var httpRequest = (HttpServletRequest) request;
             logger.info("[doFilter]" + httpRequest.getMethod() + "" + httpRequest.getRequestURI());
         }
+        chain.doFilter(request, response);
     }
 }
