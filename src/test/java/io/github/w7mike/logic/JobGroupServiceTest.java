@@ -1,6 +1,6 @@
 package io.github.w7mike.logic;
 
-import io.github.w7mike.model.JobGroups;
+import io.github.w7mike.model.JobGroup;
 import io.github.w7mike.model.JobGroupsRepository;
 import io.github.w7mike.model.JobRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -14,7 +14,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class JobGroupsServiceTest {
+class JobGroupServiceTest {
 
     @Test
     @DisplayName("Should Throw IllegalStateException when incomplete jobs exists")
@@ -57,7 +57,7 @@ class JobGroupsServiceTest {
     void toggleGroup_groupsComplete_groupExists_changeToIncomplete(){
         //given
         JobRepository mockJobRepository = jobRepositoryReturns(false);
-        var group = new JobGroups();
+        var group = new JobGroup();
         var beforeToggle = group.isComplete();
 
         var mockJobGroupRepository  = mock(JobGroupsRepository.class);
