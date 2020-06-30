@@ -1,7 +1,7 @@
 package io.github.w7mike.logic;
 
 
-import io.github.w7mike.model.JobGroups;
+import io.github.w7mike.model.JobGroup;
 import io.github.w7mike.model.JobGroupsRepository;
 import io.github.w7mike.model.JobRepository;
 import io.github.w7mike.model.projection.GroupReadModel;
@@ -21,7 +21,7 @@ public class JobGroupsService {
     }
 
     public GroupReadModel createGroup(final GroupWriteModel source){
-        JobGroups result = groupsRepository.save(source.toGroup());
+        JobGroup result = groupsRepository.save(source.toGroup());
         return new GroupReadModel(result);
     }
 
@@ -37,7 +37,7 @@ public class JobGroupsService {
             throw new IllegalStateException("Group contains uncompleted jobs, please complete all jobs first");
         }
 
-        JobGroups result = groupsRepository.findById(groupId)
+        JobGroup result = groupsRepository.findById(groupId)
                 .orElseThrow(()-> new IllegalArgumentException("Group with given id does not exists"));
         result.setComplete(!result.isComplete());
         groupsRepository.save(result);

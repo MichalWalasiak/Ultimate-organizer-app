@@ -1,7 +1,6 @@
 package io.github.w7mike;
 
 import io.github.w7mike.model.Job;
-import io.github.w7mike.model.JobGroups;
 import io.github.w7mike.model.JobRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
