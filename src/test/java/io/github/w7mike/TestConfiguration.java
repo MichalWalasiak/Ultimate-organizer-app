@@ -91,8 +91,8 @@ class TestConfiguration {
             }
 
             @Override
-            public List<Job> findAllByGroup_Id(final Integer groupId) {
-                return List.of();
+            public List<Job> findAllByJobGroup_Id(final Integer groupId) {
+                  return List.of();
             }
         };
     }

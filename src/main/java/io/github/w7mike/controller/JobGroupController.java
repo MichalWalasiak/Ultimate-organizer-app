@@ -19,14 +19,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/groups")
 public class JobGroupController {
 
     private static final Logger logger = LoggerFactory.getLogger(JobGroupController.class);
 
-    private JobGroupService jobGroupService;
-    private JobRepository jobRepository;
+    private final JobGroupService jobGroupService;
+    private final JobRepository jobRepository;
 
-    public JobGroupController(final JobGroupService jobGroupService, final JobRepository jobRepository) {
+    JobGroupController(final JobGroupService jobGroupService, final JobRepository jobRepository) {
         this.jobGroupService = jobGroupService;
         this.jobRepository = jobRepository;
     }
@@ -42,8 +43,8 @@ public class JobGroupController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<List<Job>> readAllJobsFromGroup(@PathVariable Integer id){
-        return ResponseEntity.ok(jobRepository.findAll());
+    ResponseEntity<List<Job>> readAllJobsFromGroup(@PathVariable int id){
+        return ResponseEntity.ok(jobRepository.findAllByJobGroup_Id(id));
     }
 
 
