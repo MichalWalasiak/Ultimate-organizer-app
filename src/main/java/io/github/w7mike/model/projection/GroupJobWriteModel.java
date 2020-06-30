@@ -1,7 +1,7 @@
 package io.github.w7mike.model.projection;
 
 import io.github.w7mike.model.Job;
-import io.github.w7mike.model.JobGroups;
+import io.github.w7mike.model.JobGroup;
 
 import java.time.LocalDateTime;
 
@@ -26,7 +26,7 @@ public class GroupJobWriteModel {
         this.deadline = deadline;
     }
 
-    public Job doJob(final JobGroups jobGroups){
-        return new Job(specification, deadline, jobGroups);
+    public Job doJob(final JobGroup jobGroup){
+        return new Job(specification, deadline, jobGroup);
     }
 }
