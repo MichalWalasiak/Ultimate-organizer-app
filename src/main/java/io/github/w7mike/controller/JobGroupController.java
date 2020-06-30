@@ -4,6 +4,8 @@ import io.github.w7mike.logic.JobGroupService;
 import io.github.w7mike.model.Job;
 import io.github.w7mike.model.JobGroupRepository;
 import io.github.w7mike.model.JobRepository;
+import io.github.w7mike.model.projection.GroupReadModel;
+import io.github.w7mike.model.projection.GroupWriteModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 public class JobGroupController {
@@ -28,29 +32,19 @@ public class JobGroupController {
     }
 
     @PostMapping
-    ResponseEntity<Job> createJob(@RequestBody @Valid Job newJob){
-        Job result = jobRepository.save(newJob);
-        return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
+    ResponseEntity<GroupReadModel> createGroup(@RequestBody @Valid GroupWriteModel newGroup){
+        return ResponseEntity.created(URI.create("/")).body(jobGroupService.createGroup(newGroup));
     }
 
-    @GetMapping(params = {"!sort", "!page", "!size"})
-    ResponseEntity<List<Job>> readAllJobs(){
-        logger.warn("You are going to read all available Jobs");
-        return ResponseEntity.ok(jobRepository.findAll());
+    @GetMapping
+    ResponseEntity<List<GroupReadModel>> readAllGroups(){
+        return ResponseEntity.ok(jobGroupService.readAll().stream().collect(Collectors.toList()));
     }
 
     @Transactional
     @PatchMapping("/{id}")
-    public ResponseEntity<Job> toggleJob(@PathVariable int id){
-        if(!jobRepository.existsById(id)){
-            return ResponseEntity.notFound().build();
-        }
-
-        Job job = jobRepository.findById(id)
-                .get();
-        job.setComplete(!job.isComplete());
-
-
-        return ResponseEntity.ok(job);
+    public ResponseEntity<?> toggleGroup(@PathVariable int id){
+        jobGroupService.toggleGroup(id);
+        return ResponseEntity.ok().build();
     }
 }
