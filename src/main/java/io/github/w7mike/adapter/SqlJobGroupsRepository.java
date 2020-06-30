@@ -12,7 +12,7 @@ import java.util.List;
 public interface SqlJobGroupsRepository extends JobGroupsRepository, JpaRepository<JobGroup, Integer> {
 
     @Override
-    @Query("select distinct g from JobGroups g join fetch g.jobs")
+    @Query("select distinct g from JobGroup g join fetch g.jobs")
     List<JobGroup> findAll();
 
     @Override

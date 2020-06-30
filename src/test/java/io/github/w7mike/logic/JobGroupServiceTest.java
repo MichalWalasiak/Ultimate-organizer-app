@@ -75,7 +75,7 @@ class JobGroupServiceTest {
 
     private JobRepository jobRepositoryReturns(final boolean outcome) {
         var mockJobRepository = mock(JobRepository.class);
-        when(mockJobRepository.existsByCompleteIsFalseAndJobGroups_Id(anyInt())).thenReturn(outcome);
+        when(mockJobRepository.existsByCompleteIsFalseAndJobGroup_Id(anyInt())).thenReturn(outcome);
         return mockJobRepository;
     }
 }

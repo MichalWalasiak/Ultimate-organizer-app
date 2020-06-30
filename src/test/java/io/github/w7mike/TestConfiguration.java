@@ -54,7 +54,7 @@ class TestConfiguration {
             }
 
             @Override
-            public boolean existsByCompleteIsFalseAndJobGroups_Id(final Integer id) {
+            public boolean existsByCompleteIsFalseAndJobGroup_Id(final Integer id) {
                 return false;
             }
 

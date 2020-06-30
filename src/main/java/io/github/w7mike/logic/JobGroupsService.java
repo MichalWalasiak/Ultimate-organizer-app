@@ -33,7 +33,7 @@ public class JobGroupsService {
     }
 
     public void toggleGroup(Integer groupId){
-        if (jobRepository.existsByCompleteIsFalseAndJobGroups_Id(groupId)){
+        if (jobRepository.existsByCompleteIsFalseAndJobGroup_Id(groupId)){
             throw new IllegalStateException("Group contains uncompleted jobs, please complete all jobs first");
         }
 

@@ -8,7 +8,7 @@ import java.util.Set;
 @Table(name = "job_groups")
 public class JobGroup extends BaseJob {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobGroups")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobGroup")
     private Set<Job> jobs;
 
     @ManyToOne
