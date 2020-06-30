@@ -20,5 +20,6 @@ interface SqlJobRepository extends JobRepository, JpaRepository<Job, Integer> {
     @Override
     boolean existsByCompleteIsFalseAndJobGroup_Id(Integer id);
 
+    @Override
     List<Job> findAllByGroup_Id(Integer groupId);
 }
