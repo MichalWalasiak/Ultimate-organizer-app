@@ -1,7 +1,7 @@
 package io.github.w7mike.model.projection;
 
 import io.github.w7mike.model.Job;
-import io.github.w7mike.model.JobGroups;
+import io.github.w7mike.model.JobGroup;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -18,7 +18,7 @@ public class GroupReadModel {
     private LocalDateTime deadline;
     private Set<GroupJobReadModel> jobs;
 
-    public GroupReadModel(JobGroups source){
+    public GroupReadModel(JobGroup source){
         specification = source.getSpecification();
             source.getJobs().stream()
                     .sorted(Comparator.comparing(Job::getDeadline))

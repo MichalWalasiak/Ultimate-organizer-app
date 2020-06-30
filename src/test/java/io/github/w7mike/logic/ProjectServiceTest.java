@@ -147,32 +147,32 @@ class ProjectServiceTest {
     private static class InMemoryGroupRepository implements JobGroupsRepository{
 
         private Integer index = 0;
-        private Map<Integer, JobGroups> map = new HashMap<>();
+        private Map<Integer, JobGroup> map = new HashMap<>();
 
         public int count(){
             return map.values().size();
         }
 
         @Override
-        public List<JobGroups> findAll() {
+        public List<JobGroup> findAll() {
             return new ArrayList<>(map.values());
         }
 
         @Override
-        public Optional<JobGroups> findById(final Integer id) {
+        public Optional<JobGroup> findById(final Integer id) {
             return Optional.ofNullable(map.get(id));
         }
 
         @Override
-        public JobGroups save(final JobGroups entity) {
+        public JobGroup save(final JobGroup entity) {
             if (entity.getId() == null){
                 try {
                     Field field = null;
                     try {
-                        field = JobGroups.class.getDeclaredField("id");
+                        field = JobGroup.class.getDeclaredField("id");
                     } catch (NoSuchFieldException e) {
                         try {
-                            field = JobGroups.class.getSuperclass().getDeclaredField("id");
+                            field = JobGroup.class.getSuperclass().getDeclaredField("id");
                         } catch (NoSuchFieldException e2) {
                             e2.printStackTrace();
                         }

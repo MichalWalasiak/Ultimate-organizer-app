@@ -39,7 +39,7 @@ public class JobControllerIntegrationTests {
     }
 
     @Test
-    @DisplayName("Should return all dogs")
+    @DisplayName("Should return all jobs")
     void httpGet_returnsAllJobs() throws Exception {
         // given
         jobRepository.save(new Job("foo", LocalDateTime.now()));

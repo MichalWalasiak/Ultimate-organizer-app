@@ -5,11 +5,11 @@ import java.util.Optional;
 
 public interface JobGroupsRepository {
 
-    List<JobGroups> findAll();
+    List<JobGroup> findAll();
 
-    Optional<JobGroups> findById(Integer id);
+    Optional<JobGroup> findById(Integer id);
 
-    JobGroups save (JobGroups entity);
+    JobGroup save (JobGroup entity);
 
     void deleteById(Integer id);
 

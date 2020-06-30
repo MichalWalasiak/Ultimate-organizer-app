@@ -6,16 +6,16 @@ import java.util.Set;
 
 @Entity
 @Table(name = "job_groups")
-public class JobGroups extends BaseJob {
+public class JobGroup extends BaseJob {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobGroups")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobGroup")
     private Set<Job> jobs;
 
     @ManyToOne
     @JoinColumn(name = "projects_id")
     private Project project;
 
-    public JobGroups() {
+    public JobGroup() {
     }
 
     public Set<Job> getJobs() {

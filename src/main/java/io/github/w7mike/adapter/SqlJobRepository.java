@@ -16,5 +16,5 @@ interface SqlJobRepository extends JobRepository, JpaRepository<Job, Integer> {
     boolean existsById(@Param("id") Integer id);
 
     @Override
-    boolean existsByCompleteIsFalseAndJobGroups_Id(Integer id);
+    boolean existsByCompleteIsFalseAndJobGroup_Id(Integer id);
 }

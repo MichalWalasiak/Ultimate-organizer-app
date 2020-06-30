@@ -1,7 +1,6 @@
 package io.github.w7mike;
 
 import io.github.w7mike.model.Job;
-import io.github.w7mike.model.JobGroups;
 import io.github.w7mike.model.JobRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,7 +54,7 @@ class TestConfiguration {
             }
 
             @Override
-            public boolean existsByCompleteIsFalseAndJobGroups_Id(final Integer id) {
+            public boolean existsByCompleteIsFalseAndJobGroup_Id(final Integer id) {
                 return false;
             }
 

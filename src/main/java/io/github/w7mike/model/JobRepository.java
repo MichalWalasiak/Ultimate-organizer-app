@@ -16,7 +16,7 @@ public interface JobRepository {
 
     boolean existsById(Integer id);
 
-    boolean existsByCompleteIsFalseAndJobGroups_Id(Integer id);
+    boolean existsByCompleteIsFalseAndJobGroup_Id(Integer id);
 
     List<Job>findByComplete(boolean complete);
 
