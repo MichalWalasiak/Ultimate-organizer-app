@@ -1,7 +1,7 @@
 package io.github.w7mike.logic;
 
 import io.github.w7mike.model.JobGroup;
-import io.github.w7mike.model.JobGroupsRepository;
+import io.github.w7mike.model.JobGroupRepository;
 import io.github.w7mike.model.JobRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ class JobGroupServiceTest {
         //given
         JobRepository mockJobRepository = jobRepositoryReturns(true);
 
-        var toTest = new JobGroupsService(null, mockJobRepository);
+        var toTest = new JobGroupService(null, mockJobRepository);
         //when
         var exception = catchThrowable(()-> toTest.toggleGroup(1));
 
@@ -36,12 +36,12 @@ class JobGroupServiceTest {
     @DisplayName("Should throw IllegalArgumentException when group with given id do not exists")
     void toggleGroup_noGroups_throwsIllegalArgumentException(){
         //given
-        var mockJobGroupRepository = mock(JobGroupsRepository.class);
+        var mockJobGroupRepository = mock(JobGroupRepository.class);
         when(mockJobGroupRepository.findById(anyInt())).thenReturn(Optional.empty());
 
         JobRepository mockJobRepository = jobRepositoryReturns(false);
 
-        var toTest = new JobGroupsService(mockJobGroupRepository, mockJobRepository);
+        var toTest = new JobGroupService(mockJobGroupRepository, mockJobRepository);
 
         //when
         var exception = catchThrowable(()-> toTest.toggleGroup(1));
@@ -60,10 +60,10 @@ class JobGroupServiceTest {
         var group = new JobGroup();
         var beforeToggle = group.isComplete();
 
-        var mockJobGroupRepository  = mock(JobGroupsRepository.class);
+        var mockJobGroupRepository  = mock(JobGroupRepository.class);
         when(mockJobGroupRepository.findById(anyInt())).thenReturn(Optional.of(group));
 
-        var toTest = new JobGroupsService(mockJobGroupRepository, mockJobRepository);
+        var toTest = new JobGroupService(mockJobGroupRepository, mockJobRepository);
 
         //when
         toTest.toggleGroup(0);

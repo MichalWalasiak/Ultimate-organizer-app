@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 interface SqlJobRepository extends JobRepository, JpaRepository<Job, Integer> {
@@ -17,4 +19,6 @@ interface SqlJobRepository extends JobRepository, JpaRepository<Job, Integer> {
 
     @Override
     boolean existsByCompleteIsFalseAndJobGroup_Id(Integer id);
+
+    List<Job> findAllByGroup_Id(Integer groupId);
 }
