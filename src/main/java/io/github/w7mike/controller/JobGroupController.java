@@ -41,6 +41,12 @@ public class JobGroupController {
         return ResponseEntity.ok(jobGroupService.readAll().stream().collect(Collectors.toList()));
     }
 
+    @GetMapping("/{id}")
+    ResponseEntity<List<Job>> readAllJobsFromGroup(@PathVariable Integer id){
+        return ResponseEntity.ok(jobRepository.findAll());
+    }
+
+
     @Transactional
     @PatchMapping("/{id}")
     public ResponseEntity<?> toggleGroup(@PathVariable int id){
