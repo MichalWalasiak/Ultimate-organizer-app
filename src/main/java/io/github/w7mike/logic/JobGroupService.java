@@ -10,12 +10,12 @@ import io.github.w7mike.model.projection.GroupWriteModel;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class JobGroupsService {
+public class JobGroupService {
 
     private JobGroupsRepository groupsRepository;
     private JobRepository jobRepository;
 
-    public JobGroupsService(final JobGroupsRepository groupsRepository, final JobRepository jobRepository) {
+    public JobGroupService(final JobGroupsRepository groupsRepository, final JobRepository jobRepository) {
         this.groupsRepository = groupsRepository;
         this.jobRepository = jobRepository;
     }

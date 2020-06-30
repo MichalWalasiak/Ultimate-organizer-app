@@ -22,7 +22,7 @@ class JobGroupServiceTest {
         //given
         JobRepository mockJobRepository = jobRepositoryReturns(true);
 
-        var toTest = new JobGroupsService(null, mockJobRepository);
+        var toTest = new JobGroupService(null, mockJobRepository);
         //when
         var exception = catchThrowable(()-> toTest.toggleGroup(1));
 
@@ -41,7 +41,7 @@ class JobGroupServiceTest {
 
         JobRepository mockJobRepository = jobRepositoryReturns(false);
 
-        var toTest = new JobGroupsService(mockJobGroupRepository, mockJobRepository);
+        var toTest = new JobGroupService(mockJobGroupRepository, mockJobRepository);
 
         //when
         var exception = catchThrowable(()-> toTest.toggleGroup(1));
@@ -63,7 +63,7 @@ class JobGroupServiceTest {
         var mockJobGroupRepository  = mock(JobGroupsRepository.class);
         when(mockJobGroupRepository.findById(anyInt())).thenReturn(Optional.of(group));
 
-        var toTest = new JobGroupsService(mockJobGroupRepository, mockJobRepository);
+        var toTest = new JobGroupService(mockJobGroupRepository, mockJobRepository);
 
         //when
         toTest.toggleGroup(0);

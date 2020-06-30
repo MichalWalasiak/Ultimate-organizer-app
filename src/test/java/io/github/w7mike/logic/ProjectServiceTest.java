@@ -103,8 +103,8 @@ class ProjectServiceTest {
         assertThat(sizeBeforeCall + 1).isEqualTo(inMemoryGroupRepository.count());
     }
 
-    private JobGroupsService proxyGroupRepository(final InMemoryGroupRepository inMemoryGroupRepository) {
-        return new JobGroupsService(inMemoryGroupRepository, null);
+    private JobGroupService proxyGroupRepository(final InMemoryGroupRepository inMemoryGroupRepository) {
+        return new JobGroupService(inMemoryGroupRepository, null);
     }
 
     private Project projectWith(String specification, Set<Integer> daysToDeadline){
