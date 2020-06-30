@@ -2,7 +2,7 @@ package io.github.w7mike.logic;
 
 
 import io.github.w7mike.model.JobGroup;
-import io.github.w7mike.model.JobGroupsRepository;
+import io.github.w7mike.model.JobGroupRepository;
 import io.github.w7mike.model.JobRepository;
 import io.github.w7mike.model.projection.GroupReadModel;
 import io.github.w7mike.model.projection.GroupWriteModel;
@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 
 public class JobGroupService {
 
-    private JobGroupsRepository groupsRepository;
+    private JobGroupRepository groupsRepository;
     private JobRepository jobRepository;
 
-    public JobGroupService(final JobGroupsRepository groupsRepository, final JobRepository jobRepository) {
+    public JobGroupService(final JobGroupRepository groupsRepository, final JobRepository jobRepository) {
         this.groupsRepository = groupsRepository;
         this.jobRepository = jobRepository;
     }

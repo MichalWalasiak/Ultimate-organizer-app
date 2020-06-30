@@ -1,7 +1,7 @@
 package io.github.w7mike.logic;
 
 import io.github.w7mike.model.JobGroup;
-import io.github.w7mike.model.JobGroupsRepository;
+import io.github.w7mike.model.JobGroupRepository;
 import io.github.w7mike.model.JobRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ class JobGroupServiceTest {
     @DisplayName("Should throw IllegalArgumentException when group with given id do not exists")
     void toggleGroup_noGroups_throwsIllegalArgumentException(){
         //given
-        var mockJobGroupRepository = mock(JobGroupsRepository.class);
+        var mockJobGroupRepository = mock(JobGroupRepository.class);
         when(mockJobGroupRepository.findById(anyInt())).thenReturn(Optional.empty());
 
         JobRepository mockJobRepository = jobRepositoryReturns(false);
@@ -60,7 +60,7 @@ class JobGroupServiceTest {
         var group = new JobGroup();
         var beforeToggle = group.isComplete();
 
-        var mockJobGroupRepository  = mock(JobGroupsRepository.class);
+        var mockJobGroupRepository  = mock(JobGroupRepository.class);
         when(mockJobGroupRepository.findById(anyInt())).thenReturn(Optional.of(group));
 
         var toTest = new JobGroupService(mockJobGroupRepository, mockJobRepository);

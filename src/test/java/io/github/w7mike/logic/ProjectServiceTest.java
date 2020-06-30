@@ -22,7 +22,7 @@ class ProjectServiceTest {
     @DisplayName("Should throw IllegalStateException when properties allows one groups and other incomplete groups exist")
     void createGroup_NoMultipleGroupsProperties_And_IncompleteGroupsExists_throwsIllegalStateException() {
         //given
-        JobGroupsRepository mockGroupRepository = groupRepositoryReturning(true);
+        JobGroupRepository mockGroupRepository = groupRepositoryReturning(true);
         JobConfigurationProperties mockProperties = configurationReturning(false);
 
         var toTest = new ProjectsService(null, mockGroupRepository, null, mockProperties);
@@ -61,7 +61,7 @@ class ProjectServiceTest {
         //given
         var mockRepository = mock(ProjectRepository.class);
         when(mockRepository.findById(anyInt())).thenReturn(Optional.empty());
-        JobGroupsRepository mockGroupRepository1 = groupRepositoryReturning(true);
+        JobGroupRepository mockGroupRepository1 = groupRepositoryReturning(true);
         JobConfigurationProperties mockProperties = configurationReturning(true);
 
         var toTest = new ProjectsService(mockRepository, mockGroupRepository1, null, mockProperties);
@@ -123,8 +123,8 @@ class ProjectServiceTest {
             return outcome;
     }
 
-    private JobGroupsRepository groupRepositoryReturning(final boolean result) {
-        var mockGroupRepository = mock(JobGroupsRepository.class);
+    private JobGroupRepository groupRepositoryReturning(final boolean result) {
+        var mockGroupRepository = mock(JobGroupRepository.class);
         when(mockGroupRepository.existsByCompleteIsFalseAndProject_Id(anyInt())).thenReturn(result);
         return mockGroupRepository;
     }
@@ -144,7 +144,7 @@ class ProjectServiceTest {
         };
     }
 
-    private static class InMemoryGroupRepository implements JobGroupsRepository{
+    private static class InMemoryGroupRepository implements JobGroupRepository {
 
         private Integer index = 0;
         private Map<Integer, JobGroup> map = new HashMap<>();

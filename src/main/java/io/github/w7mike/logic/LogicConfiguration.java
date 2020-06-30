@@ -1,7 +1,7 @@
 package io.github.w7mike.logic;
 
 import io.github.w7mike.JobConfigurationProperties;
-import io.github.w7mike.model.JobGroupsRepository;
+import io.github.w7mike.model.JobGroupRepository;
 import io.github.w7mike.model.JobRepository;
 import io.github.w7mike.model.ProjectRepository;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ public class LogicConfiguration {
     @Bean
     public ProjectsService service(
             final ProjectRepository projectRepository,
-            final JobGroupsRepository groupsRepository,
+            final JobGroupRepository groupsRepository,
             final JobGroupService service,
             final JobConfigurationProperties properties
     ){
@@ -22,7 +22,7 @@ public class LogicConfiguration {
 
     @Bean
     public JobGroupService jobGroupsService(
-            final JobGroupsRepository groupsRepository,
+            final JobGroupRepository groupsRepository,
             final JobRepository jobRepository
     ){
         return new JobGroupService(groupsRepository, jobRepository);
