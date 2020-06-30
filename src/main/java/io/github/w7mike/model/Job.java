@@ -1,10 +1,7 @@
 package io.github.w7mike.model;
 
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,7 +11,7 @@ public class Job extends BaseJob {
 
     @ManyToOne
     @JoinColumn(name = "job_groups_id")
-    private JobGroups jobGroups;
+    private JobGroup jobGroup;
 
     public Job() {
     }
@@ -24,11 +21,11 @@ public class Job extends BaseJob {
 
     }
 
-    public Job(final String specification, LocalDateTime deadline, JobGroups jobGroups) {
+    public Job(final String specification, LocalDateTime deadline, JobGroup jobGroup) {
         super(specification);
         this.deadline = deadline;
-        if (jobGroups != null){
-            this.jobGroups = jobGroups;
+        if (jobGroup != null){
+            this.jobGroup = jobGroup;
         }
 
     }
@@ -45,7 +42,7 @@ public class Job extends BaseJob {
     public void updateFrom(final Job source){
         super.updateFrom(source);
         deadline = source.deadline;
-        jobGroups = source.jobGroups;
+        jobGroup = source.jobGroup;
     }
 
 
