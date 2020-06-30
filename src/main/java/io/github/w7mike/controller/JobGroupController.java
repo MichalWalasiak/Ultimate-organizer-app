@@ -39,20 +39,6 @@ public class JobGroupController {
         return ResponseEntity.ok(jobRepository.findAll());
     }
 
-    @PutMapping("/{id}")
-    ResponseEntity<Job> updateJob(@PathVariable int id, @RequestBody Job jobToUpdate){
-        if(!jobRepository.existsById(id)){
-            return ResponseEntity.notFound().build();
-        }
-
-        jobRepository.findById(id)
-                .ifPresent(job -> {
-                    job.updateFrom(jobToUpdate);
-                    jobRepository.save(job);
-                });
-        return ResponseEntity.noContent().build();
-    }
-
     @Transactional
     @PatchMapping("/{id}")
     public ResponseEntity<Job> toggleJob(@PathVariable int id){
