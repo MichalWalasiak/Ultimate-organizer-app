@@ -53,4 +53,9 @@ public class JobGroupController {
         jobGroupService.toggleGroup(id);
         return ResponseEntity.ok().build();
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    ResponseEntity<String> handleIllegalArgument (IllegalArgumentException e) {
+        return ResponseEntity.notFound().build();
+    }
 }
