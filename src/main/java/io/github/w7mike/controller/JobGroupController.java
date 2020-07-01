@@ -34,7 +34,8 @@ public class JobGroupController {
 
     @PostMapping
     ResponseEntity<GroupReadModel> createGroup(@RequestBody @Valid GroupWriteModel newGroup){
-        return ResponseEntity.created(URI.create("/")).body(jobGroupService.createGroup(newGroup));
+        GroupReadModel outcome = jobGroupService.createGroup(newGroup);
+        return ResponseEntity.created(URI.create("/" + outcome.getId())).body(outcome);
     }
 
     @GetMapping
