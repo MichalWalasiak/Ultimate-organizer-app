@@ -2,7 +2,6 @@ package io.github.w7mike.controller;
 
 import io.github.w7mike.logic.JobGroupService;
 import io.github.w7mike.model.Job;
-import io.github.w7mike.model.JobGroupRepository;
 import io.github.w7mike.model.JobRepository;
 import io.github.w7mike.model.projection.GroupReadModel;
 import io.github.w7mike.model.projection.GroupWriteModel;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
