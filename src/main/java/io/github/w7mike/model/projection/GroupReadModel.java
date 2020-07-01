@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 public class GroupReadModel {
 
+    private Integer id;
     private String specification;
 
     /**
@@ -19,6 +20,7 @@ public class GroupReadModel {
     private Set<GroupJobReadModel> jobs;
 
     public GroupReadModel(JobGroup source){
+        id = source.getId();
         specification = source.getSpecification();
             source.getJobs().stream()
                     .sorted(Comparator.comparing(Job::getDeadline))
@@ -31,6 +33,14 @@ public class GroupReadModel {
                     .map(GroupJobReadModel::new)
                     .collect(Collectors.toSet());
 
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    void setId(final Integer id) {
+        this.id = id;
     }
 
     public String getSpecification() {

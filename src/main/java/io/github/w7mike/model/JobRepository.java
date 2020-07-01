@@ -24,7 +24,5 @@ public interface JobRepository {
 
     void deleteById(Integer id);
 
-
-
-
+    List<Job> findAllByJobGroup_Id(Integer groupId);
 }

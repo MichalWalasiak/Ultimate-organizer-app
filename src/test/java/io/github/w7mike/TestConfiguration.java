@@ -89,6 +89,11 @@ class TestConfiguration {
             @Override
             public void deleteById(final Integer id) {
             }
+
+            @Override
+            public List<Job> findAllByJobGroup_Id(final Integer groupId) {
+                  return List.of();
+            }
         };
     }
 }

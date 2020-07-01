@@ -76,10 +76,8 @@ class JobController {
             return ResponseEntity.notFound().build();
         }
 
-        Job job = repository.findById(id)
-                .get();
+        Job job = repository.findById(id).get();
         job.setComplete(!job.isComplete());
-
 
         return ResponseEntity.ok(job);
     }
