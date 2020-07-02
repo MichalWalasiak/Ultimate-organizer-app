@@ -5,12 +5,11 @@ import io.github.w7mike.model.*;
 import io.github.w7mike.model.projection.GroupJobWriteModel;
 import io.github.w7mike.model.projection.GroupReadModel;
 import io.github.w7mike.model.projection.GroupWriteModel;
+import io.github.w7mike.model.projection.ProjectWriteModel;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class ProjectsService {
@@ -31,38 +30,32 @@ public class ProjectsService {
         return projectRepository.findAll();
     }
 
-    public Project createProject(final Project toCreate){
-        return projectRepository.save(toCreate);
+    public Project createProject(final ProjectWriteModel toCreate){
+        return projectRepository.save(toCreate.toProject());
     }
 
-    public GroupReadModel createGroup(LocalDateTime deadline, Integer projectId){
+    public GroupReadModel createGroup(LocalDateTime deadline, Integer projectId) {
 
-        if (!properties.getTemplate().isAllowMultipleJobs() && groupsRepository.existsByCompleteIsFalseAndProject_Id(projectId)){
+        if (!properties.getTemplate().isAllowMultipleJobs() && groupsRepository.existsByCompleteIsFalseAndProject_Id(projectId)) {
             throw new IllegalStateException("only one incomplete group in project is allowed");
         }
-
-        Optional<Project> projects = projectRepository.findById(projectId);
-        if (projects.isEmpty()) {
-            throw new IllegalArgumentException("project with given Id do not exists");
-        }
-
-        final Set<GroupJobWriteModel> jobs = createGroupJobWriteModels(deadline, projects);
-
-        var target = new GroupWriteModel();
-        target.setSpecification(projects.get().getSpecification());
-        target.setJobs(jobs);
-
-        return service.createGroup(target);
-    }
-
-    private Set<GroupJobWriteModel> createGroupJobWriteModels(final LocalDateTime deadline, final Optional<Project> projects) {
-        final Set<GroupJobWriteModel> jobs = new HashSet();
-        for (ProjectSteps projectSteps : projects.get().getSteps()) {
-            var job = new GroupJobWriteModel();
-            job.setSpecification(projectSteps.getSpecification());
-            job.setDeadline(deadline.plusDays(projectSteps.getDaysToDeadline()));
-            jobs.add(job);
-        }
-        return jobs;
+        return projectRepository.findById(projectId)
+                .map(project -> {
+                    var target = new GroupWriteModel();
+                    target.setSpecification(project.getSpecification());
+                    target.setJobs(
+                            project.getSteps().stream()
+                                    .map(projectSteps -> {
+                                        var job = new GroupJobWriteModel();
+                                        job.setSpecification(projectSteps.getSpecification());
+                                        job.setDeadline(deadline.plusDays(projectSteps.getDaysToDeadline()));
+                                        return job;
+                                    }).collect(Collectors.toSet())
+                    );
+                    return service.createGroup(target, project);
+                }).orElseThrow(() -> new IllegalArgumentException("project with given Id do not exists"));
     }
 }
+
+
+

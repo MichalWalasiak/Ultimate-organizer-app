@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "project_steps")
-public class ProjectSteps {
+public class ProjectStep {
 
     @Id
     @GeneratedValue(generator = "inc")
@@ -22,7 +22,7 @@ public class ProjectSteps {
     @JoinColumn(name = "projects_id")
     private Project project;
 
-    public ProjectSteps() {
+    public ProjectStep() {
     }
 
     public Integer getId() {
@@ -37,7 +37,7 @@ public class ProjectSteps {
         return specification;
     }
 
-    void setSpecification(final String specification) {
+    public void setSpecification(final String specification) {
         this.specification = specification;
     }
 
@@ -45,7 +45,7 @@ public class ProjectSteps {
         return daysToDeadline;
     }
 
-    void setDaysToDeadline(final Integer daysToDeadline) {
+    public void setDaysToDeadline(final Integer daysToDeadline) {
         this.daysToDeadline = daysToDeadline;
     }
 
@@ -53,7 +53,7 @@ public class ProjectSteps {
         return project;
     }
 
-    void setProject(final Project project) {
+    public void setProject(final Project project) {
         this.project = project;
     }
 }

@@ -44,8 +44,6 @@ public class Job extends BaseJob {
         deadline = source.deadline;
         jobGroup = source.jobGroup;
     }
-
-
 }
 
 
