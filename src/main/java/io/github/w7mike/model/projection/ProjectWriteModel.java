@@ -2,10 +2,14 @@ package io.github.w7mike.model.projection;
 
 import io.github.w7mike.model.ProjectStep;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 public class ProjectWriteModel {
+    @NotBlank(message = "project's specification must be not null")
     private String specification;
+    @Valid
     private List<ProjectStep> steps;
 
     public String getSpecification() {
