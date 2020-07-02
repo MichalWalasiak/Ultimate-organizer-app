@@ -4,6 +4,7 @@ package io.github.w7mike.logic;
 import io.github.w7mike.model.JobGroup;
 import io.github.w7mike.model.JobGroupRepository;
 import io.github.w7mike.model.JobRepository;
+import io.github.w7mike.model.Project;
 import io.github.w7mike.model.projection.GroupReadModel;
 import io.github.w7mike.model.projection.GroupWriteModel;
 
@@ -21,7 +22,11 @@ public class JobGroupService {
     }
 
     public GroupReadModel createGroup(final GroupWriteModel source){
-        JobGroup result = groupsRepository.save(source.toGroup());
+        return createGroup(source, null);
+    }
+
+    public GroupReadModel createGroup(final GroupWriteModel source, final Project project) {
+        JobGroup result = groupsRepository.save(source.toGroup(project));
         return new GroupReadModel(result);
     }
 
