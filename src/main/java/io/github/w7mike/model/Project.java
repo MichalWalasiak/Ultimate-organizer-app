@@ -55,7 +55,7 @@ public class Project {
         return steps;
     }
 
-    void setSteps(final Set<ProjectSteps> steps) {
+    public void setSteps(final Set<ProjectSteps> steps) {
         this.steps = steps;
     }
 }
