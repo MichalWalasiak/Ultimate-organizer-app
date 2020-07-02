@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "project_steps")
-public class ProjectSteps {
+public class ProjectStep {
 
     @Id
     @GeneratedValue(generator = "inc")
@@ -22,7 +22,7 @@ public class ProjectSteps {
     @JoinColumn(name = "projects_id")
     private Project project;
 
-    public ProjectSteps() {
+    public ProjectStep() {
     }
 
     public Integer getId() {
