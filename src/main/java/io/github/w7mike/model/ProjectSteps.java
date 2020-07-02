@@ -37,7 +37,7 @@ public class ProjectSteps {
         return specification;
     }
 
-    void setSpecification(final String specification) {
+    public void setSpecification(final String specification) {
         this.specification = specification;
     }
 
@@ -45,7 +45,7 @@ public class ProjectSteps {
         return daysToDeadline;
     }
 
-    void setDaysToDeadline(final Integer daysToDeadline) {
+    public void setDaysToDeadline(final Integer daysToDeadline) {
         this.daysToDeadline = daysToDeadline;
     }
 
@@ -53,7 +53,7 @@ public class ProjectSteps {
         return project;
     }
 
-    void setProject(final Project project) {
+    public void setProject(final Project project) {
         this.project = project;
     }
 }
