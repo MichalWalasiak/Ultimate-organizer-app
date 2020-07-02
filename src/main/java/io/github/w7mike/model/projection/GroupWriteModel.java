@@ -1,6 +1,7 @@
 package io.github.w7mike.model.projection;
 
 import io.github.w7mike.model.JobGroup;
+import io.github.w7mike.model.Project;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -26,13 +27,14 @@ public class GroupWriteModel {
         this.jobs = jobs;
     }
 
-    public JobGroup toGroup(){
+    public JobGroup toGroup(final Project project){
         var result = new JobGroup();
         result.setSpecification(specification);
         result.setJobs(jobs.stream()
                             .map(outcome -> outcome.doJob(result))
-                            .collect(Collectors.toSet()));
-
+                            .collect(Collectors.toSet())
+        );
+        result.setProject(project);
         return result;
     }
 
