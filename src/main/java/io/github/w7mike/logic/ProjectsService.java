@@ -5,6 +5,7 @@ import io.github.w7mike.model.*;
 import io.github.w7mike.model.projection.GroupJobWriteModel;
 import io.github.w7mike.model.projection.GroupReadModel;
 import io.github.w7mike.model.projection.GroupWriteModel;
+import io.github.w7mike.model.projection.ProjectWriteModel;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,8 +30,8 @@ public class ProjectsService {
         return projectRepository.findAll();
     }
 
-    public Project createProject(final Project toCreate){
-        return projectRepository.save(toCreate);
+    public Project createProject(final ProjectWriteModel toCreate){
+        return projectRepository.save(toCreate.toProject());
     }
 
     public GroupReadModel createGroup(LocalDateTime deadline, Integer projectId) {
