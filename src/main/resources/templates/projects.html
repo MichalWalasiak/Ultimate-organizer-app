@@ -15,13 +15,13 @@
             <label> Specification
                 <input type="text" th:field="*{specification}" />
             </label>
-            <fieldset>
-                <legend>Step 1 </legend>
+            <fieldset th:each="step, stepStat : *{steps}">
+                <legend th:text="|Step ${stepStat.index + 1}|" ></legend>
                 <label> Specification
-                    <input type="text" th:field="*{steps[0].specification}">
+                    <input type="text" th:field="*{steps[__${stepStat.index}__].specification}">
                 </label>
                 <label> Days to project end
-                    <input type="text" th:filed="*{steps[0].daysToDeadline}">
+                    <input type="text" th:filed="*{steps[__${stepStat.index}__].daysToDeadline}">
                 </label>
             </fieldset>
         </fieldset>
