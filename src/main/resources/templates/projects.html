@@ -8,7 +8,8 @@
 </head>
 <body>
 <main>
-    <form action="#" method="POST" th:action="@{/projects}">
+    <!--/*@thymesVar id="project" type="io.github.w7mike.model.projection.ProjectWriteModel"*/-->
+    <form action="#" method="POST" th:action="@{/projects}" th:object="${project}">
         <fieldset>
             <legend>New project</legend>
             <label> Specification
