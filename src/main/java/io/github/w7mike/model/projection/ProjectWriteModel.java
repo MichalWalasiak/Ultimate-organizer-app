@@ -5,6 +5,7 @@ import io.github.w7mike.model.ProjectStep;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -12,7 +13,11 @@ public class ProjectWriteModel {
     @NotBlank(message = "project's specification must be not null")
     private String specification;
     @Valid
-    private List<ProjectStep> steps;
+    private List<ProjectStep> steps = new ArrayList<>();
+
+    public ProjectWriteModel() {
+        steps.add(new ProjectStep());
+    }
 
     public String getSpecification() {
         return specification;
