@@ -26,6 +26,14 @@ class ProjectController {
         return "projects";
     }
 
+    @PostMapping
+    String addProject(@ModelAttribute("project") ProjectWriteModel current, Model model) {
+        service.save(current);
+        model.addAttribute("project", new ProjectWriteModel());
+        model.addAttribute("message" , "project added successfully");
+        return "projects";
+    }
+
     @PostMapping(params = "addStep")
     String addProjectStep(@ModelAttribute("project") ProjectWriteModel current) {
         current.getSteps().add(new ProjectStep());
