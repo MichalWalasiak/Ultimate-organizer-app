@@ -1,4 +1,5 @@
 # ultimate-organizer-app
+[![Build Status](https://travis-ci.com/MichalWalasiak/ultimate-organizer-app.svg?branch=master)](https://travis-ci.com/MichalWalasiak/ultimate-organizer-app)
 
 # Project Name
 ultimate-organizer-List
