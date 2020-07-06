@@ -8,6 +8,8 @@
 </head>
 <body>
 <main>
+    <!--/*thymesVar id="project" type="java.lang.String"*/-->
+    <h1 th:if="${message != null}" th:text="${message}" ></h1>
     <!--/*@thymesVar id="project" type="io.github.w7mike.model.projection.ProjectWriteModel"*/-->
     <form action="#" method="POST" th:action="@{/projects}" th:object="${project}">
         <fieldset>
