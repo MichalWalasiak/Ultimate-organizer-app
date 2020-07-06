@@ -12,7 +12,6 @@ tasks can be gruped into groups, or they can create a project. All tasks are hol
 * [Setup](#setup)
 * [Features](#features)
 * [Status](#status)
-* [Inspiration](#inspiration)
 * [Contact](#contact)
 
 ## General info
