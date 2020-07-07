@@ -8,7 +8,7 @@
 </head>
 <body>
 <main>
-    <!--/*thymesVar id="project" type="java.lang.String"*/-->
+    <!--/*thymesVar id="message" type="java.lang.String"*/-->
     <h1 th:if="${message != null}" th:text="${message}" ></h1>
     <!--/*@thymesVar id="project" type="io.github.w7mike.model.projection.ProjectWriteModel"*/-->
     <form action="#" method="POST" th:action="@{/projects}" th:object="${project}">
@@ -17,12 +17,12 @@
             <label> Specification
                 <input type="text" th:field="*{specification}" />
             </label>
-            <fieldset th:each="step, stepStat : *{steps}">
+            <fieldset th:each="step,stepStat : *{steps}">
                 <legend th:text="|Step ${stepStat.index + 1}|" ></legend>
-                <label> Specification
+                <label>Specification
                     <input type="text" th:field="*{steps[__${stepStat.index}__].specification}">
                 </label>
-                <label> Days to project end
+                <label>Days to project end
                     <input type="number" th:filed="*{steps[__${stepStat.index}__].daysToDeadline}">
                 </label>
             </fieldset>
