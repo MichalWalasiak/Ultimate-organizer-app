@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("projects")
+@RequestMapping("/projects")
 class ProjectController {
 
-    private ProjectsService service;
+    private final ProjectsService service;
 
     ProjectController(final ProjectsService service) {
         this.service = service;
