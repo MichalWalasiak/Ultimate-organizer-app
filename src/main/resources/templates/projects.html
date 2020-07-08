@@ -35,7 +35,7 @@
     <fieldset>
         <!--/*@thymesVar id="project" type="io.github.w7mike.model.projection.ProjectWriteModel"*/-->
         <form action="#" method="POST" th:action="@{/projects}" th:object="${project}">
-
+            <p th:if="@{#fields.hasAnyErrors}" th:errors="*{all}"></p>
             <legend>New project</legend>
             <label> Specification
                 <input type="text" th:field="*{specification}" />
