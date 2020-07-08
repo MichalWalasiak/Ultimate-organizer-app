@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -31,7 +32,7 @@ class ProjectController {
     }
 
     @PostMapping
-    String addProject(@ModelAttribute("project") ProjectWriteModel current, BindingResult bindingResult,
+    String addProject(@ModelAttribute("project") @Valid ProjectWriteModel current, BindingResult bindingResult,
                       Model model) {
         if (bindingResult.hasErrors()){
             return "projects";
