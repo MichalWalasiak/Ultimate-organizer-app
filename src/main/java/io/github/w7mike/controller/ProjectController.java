@@ -6,6 +6,7 @@ import io.github.w7mike.model.ProjectStep;
 import io.github.w7mike.model.projection.ProjectWriteModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +31,11 @@ class ProjectController {
     }
 
     @PostMapping
-    String addProject(@ModelAttribute("project") ProjectWriteModel current, Model model) {
+    String addProject(@ModelAttribute("project") ProjectWriteModel current, BindingResult bindingResult,
+                      Model model) {
+        if (bindingResult.hasErrors()){
+            return "projects";
+        }
         service.save(current);
         model.addAttribute("project", new ProjectWriteModel());
         model.addAttribute("message" , "project added successfully");
