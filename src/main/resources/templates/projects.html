@@ -5,23 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ultimate-organizer-app: projects</title>
     <link rel="stylesheet" href=https://igoradamenko.github.io/awsm.css/css/awsm.min.css>
+    <style>
+        .Bd {
+            border: solid 1px black;
+        }
+
+        .P\(0\) {
+            padding: 0;
+        }
+
+        .P\(10px\) {
+            padding: 10;
+        }
+    </style>
 </head>
 <body>
 <main>
     <!--/*thymesVar id="message" type="java.lang.String"*/-->
     <h1 th:if="${message != null}" th:text="${message}" ></h1>
     <!--/*thymesVar id="projects" type="java.util.List<io.github.w7mike.model.Project>"*/-->
-    <dl th:each="project : ${projects}">
+    <dl th:each="project : ${projects}" class="Bd P(10px)">
         <dt th:text="${project.specification}">...</dt>
         <dd>
-            <ul>
+            <ul class="P(0)">
                 <li th:each="step : ${project.steps}" th:text="|${step.specification} ${step.daysToDeadline} days|"></li>
             </ul>
         </dd>
     </dl>
-    <!--/*@thymesVar id="project" type="io.github.w7mike.model.projection.ProjectWriteModel"*/-->
-    <form action="#" method="POST" th:action="@{/projects}" th:object="${project}">
-        <fieldset>
+    <fieldset>
+        <!--/*@thymesVar id="project" type="io.github.w7mike.model.projection.ProjectWriteModel"*/-->
+        <form action="#" method="POST" th:action="@{/projects}" th:object="${project}">
+
             <legend>New project</legend>
             <label> Specification
                 <input type="text" th:field="*{specification}" />
@@ -38,12 +52,12 @@
             <div>
                 <button type="submit" name="addStep">+</button>
             </div>
-        </fieldset>
-        <p>
-            <button type="submit">add</button>
-            <button type="reset">clear</button>
-        </p>
-    </form>
+            <p>
+                <button type="submit">add</button>
+                <button type="reset">clear</button>
+            </p>
+        </form>
+    </fieldset>
 </main>
 </body>
-</html>
+</html> 
