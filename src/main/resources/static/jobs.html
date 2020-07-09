@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate-organizer-app: groups</title>
+</head>
+<body>
+    <main>
+        <fieldset>
+            <form>
+                <label>Specification
+                    <input type="text" name="specification"/>
+                </label>
+                <label>Deadline
+                    <input type="datetime-local" name="deadline" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" />
+                </label>
+                <button type="submit">Add!</button>
+            </form>
+        </fieldset>
+    </main>
+<script>
+    (async function() {
+        const main = document.querySelector('main');
+        const params = new URLSearchParams(location.search);
+        const response = params.has('group') ? await fetch(`/groups/${params.get('group')}`) : await fetch('/jobs');
+        if (response.ok) {
+            const jobs = await response.json();
+            const list = document.createElement('ul');
+            jobs.forEach(element => list.appendChild(createJob(job)));
+            main.prepend(list);
+        }
+        const form = document.querySelector('form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const resp = await fetch ('/jobs', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    specification: form.elements.specification.value,
+                    deadline: form.elements.deadline.value && form.elements.deadline.value + ':00.000'
+                })
+            });
+            if (resp.ok) {
+                const jobFromServer = await resp.json();
+                document.querySelector('ul').appendChild(createJob(jobFromServer));
+                form.reset();
+            }
+        });
+
+        function createJob({ id, specification, deadline, complete }) {
+            const result = document.createElement('li');
+            result.innerHTML = `
+                <label>
+                    <input type="checkbox" ${complete ? ' checked' : ''}/>
+                    ${specification}
+                    <small>${deadline && deadline.replace('T', ' ')}</small>
+                <label>
+            `;
+            result.querySelector('input').addEventListener('click', async (e) => {
+                const response = await fetch(`/jobs/${id}`, { method: 'PATCH' });
+                if (!response.ok) {
+                    e.target.checked = !e.target.checked;
+                }
+            });
+            return result;
+        }
+    })();
+</script>
+</body>
+</html>
