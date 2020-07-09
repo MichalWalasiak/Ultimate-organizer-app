@@ -4,15 +4,14 @@ import io.github.w7mike.logic.ProjectsService;
 import io.github.w7mike.model.Project;
 import io.github.w7mike.model.ProjectStep;
 import io.github.w7mike.model.projection.ProjectWriteModel;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -41,6 +40,16 @@ class ProjectController {
         model.addAttribute("project", new ProjectWriteModel());
         model.addAttribute("message" , "project added successfully");
         return "projects";
+    }
+
+    @PostMapping("/{id}")
+    String createGroup(
+            @ModelAttribute("project") ProjectWriteModel current,
+            Model model,
+            @PathVariable int id,
+            @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDate deadline
+    ) {
+
     }
 
     @PostMapping(params = "addStep")
