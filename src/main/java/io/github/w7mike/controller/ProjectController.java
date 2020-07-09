@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -47,9 +48,15 @@ class ProjectController {
             @ModelAttribute("project") ProjectWriteModel current,
             Model model,
             @PathVariable int id,
-            @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDate deadline
+            @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime deadline
     ) {
-
+        try{
+            service.createGroup(deadline, id);
+            model.addAttribute("message", "group was added!");
+        }catch (IllegalStateException | IllegalArgumentException e){
+            model.addAttribute("message", "error while creating group");
+        }
+        return "projects";
     }
 
     @PostMapping(params = "addStep")
