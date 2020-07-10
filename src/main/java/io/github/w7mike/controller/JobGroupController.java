@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -70,7 +71,7 @@ public class JobGroupController {
     @ResponseBody
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<GroupReadModel>> readAllGroups(){
-        return ResponseEntity.ok(jobGroupService.readAll().stream().collect(Collectors.toList()));
+        return ResponseEntity.ok(new ArrayList<>(jobGroupService.readAll()));
     }
     @ResponseBody
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -98,6 +99,6 @@ public class JobGroupController {
 
     @ModelAttribute("groups")
     List<GroupReadModel> getGroups() {
-        return jobGroupService.readAll().stream().collect(Collectors.toList());
+        return new ArrayList<>(jobGroupService.readAll());
     }
 }
