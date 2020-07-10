@@ -13,7 +13,7 @@ public class GroupWriteModel {
 
     @NotBlank(message = "job group's specification must be not null")
     private String specification;
-    @Valid
+
     private List<GroupJobWriteModel> jobs = new ArrayList<>();
 
     public GroupWriteModel() {
