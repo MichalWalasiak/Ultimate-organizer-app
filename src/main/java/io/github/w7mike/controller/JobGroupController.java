@@ -37,16 +37,16 @@ public class JobGroupController {
     }
 
     @PostMapping
-    String addProject(@ModelAttribute("project") @Valid ProjectWriteModel current, BindingResult bindingResult,
+    String addProject(@ModelAttribute("group") @Valid GroupWriteModel current, BindingResult bindingResult,
                       Model model) {
         if (bindingResult.hasErrors()){
-            return "projects";
+            return "groups";
         }
-        service.save(current);
-        model.addAttribute("project", new ProjectWriteModel());
-        model.addAttribute("projects", getProjects());
-        model.addAttribute("message" , "project added successfully");
-        return "projects";
+        jobGroupService.save(current);
+        model.addAttribute("group", new ProjectWriteModel());
+        model.addAttribute("groups", getProjects());
+        model.addAttribute("message" , "group added successfully");
+        return "groups";
     }
 
     @PostMapping(params = "addStep")
