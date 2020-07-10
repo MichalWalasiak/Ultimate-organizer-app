@@ -4,6 +4,7 @@ import io.github.w7mike.logic.JobGroupService;
 import io.github.w7mike.model.Job;
 import io.github.w7mike.model.JobRepository;
 import io.github.w7mike.model.ProjectStep;
+import io.github.w7mike.model.projection.GroupJobWriteModel;
 import io.github.w7mike.model.projection.GroupReadModel;
 import io.github.w7mike.model.projection.GroupWriteModel;
 import io.github.w7mike.model.projection.ProjectWriteModel;
@@ -49,10 +50,10 @@ public class JobGroupController {
         return "groups";
     }
 
-    @PostMapping(params = "addStep")
-    String addProjectStep(@ModelAttribute("project") ProjectWriteModel current) {
-        current.getSteps().add(new ProjectStep());
-        return "projects";
+    @PostMapping(params = "addJob")
+    String addProjectStep(@ModelAttribute("group") GroupWriteModel current) {
+        current.getJobs().add(new GroupJobWriteModel());
+        return "groups";
     }
 
     @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
