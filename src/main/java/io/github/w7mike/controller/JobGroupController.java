@@ -51,7 +51,7 @@ public class JobGroupController {
     }
 
     @PostMapping(params = "addJob")
-    String addProjectStep(@ModelAttribute("group") GroupWriteModel current) {
+    String addGroupJob(@ModelAttribute("group") GroupWriteModel current) {
         current.getJobs().add(new GroupJobWriteModel());
         return "groups";
     }
