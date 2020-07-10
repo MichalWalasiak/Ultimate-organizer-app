@@ -43,7 +43,7 @@ public class JobGroupController {
         return ResponseEntity.ok(jobGroupService.readAll().stream().collect(Collectors.toList()));
     }
     @ResponseBody
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<Job>> readAllJobsFromGroup(@PathVariable int id){
         return ResponseEntity.ok(jobRepository.findAllByJobGroup_Id(id));
     }
