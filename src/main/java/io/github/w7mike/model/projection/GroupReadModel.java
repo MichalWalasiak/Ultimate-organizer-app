@@ -5,6 +5,7 @@ import io.github.w7mike.model.JobGroup;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,7 @@ public class GroupReadModel {
             source.getJobs().stream()
                     .sorted(Comparator.comparing(Job::getDeadline))
                     .map(Job::getDeadline)
+                    .filter(Objects::nonNull)
                     .max(LocalDateTime::compareTo)
                     .ifPresent(date -> deadline = date);
 
