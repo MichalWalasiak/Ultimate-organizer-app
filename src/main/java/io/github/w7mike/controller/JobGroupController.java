@@ -37,7 +37,7 @@ public class JobGroupController {
         this.jobRepository = jobRepository;
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.TEXT_HTML_VALUE, consumes = MediaType.TEXT_HTML_VALUE)
     String addGroup(@ModelAttribute("group") @Valid GroupWriteModel current, BindingResult bindingResult,
                       Model model) {
         if (bindingResult.hasErrors()){
@@ -50,7 +50,7 @@ public class JobGroupController {
         return "groups";
     }
 
-    @PostMapping(params = "addJob")
+    @PostMapping(params = "addJob", produces = MediaType.TEXT_HTML_VALUE)
     String addGroupJob(@ModelAttribute("group") GroupWriteModel current) {
         current.getJobs().add(new GroupJobWriteModel());
         return "groups";
