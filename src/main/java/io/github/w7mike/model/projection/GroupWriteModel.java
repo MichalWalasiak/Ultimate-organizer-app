@@ -14,6 +14,7 @@ public class GroupWriteModel {
     private List<GroupJobWriteModel> jobs = new ArrayList<>();
 
     public GroupWriteModel() {
+        jobs.add(new GroupJobWriteModel());
     }
 
     public String getSpecification() {
