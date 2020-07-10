@@ -24,6 +24,7 @@ class GroupReadModelTest {
         var outcome = new GroupReadModel(source);
 
         // then
+        assertThat(outcome).hasFieldOrPropertyWithValue("deadline", null);
 
     }
 
