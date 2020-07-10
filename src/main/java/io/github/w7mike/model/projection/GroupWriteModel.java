@@ -13,6 +13,9 @@ public class GroupWriteModel {
     private String specification;
     private List<GroupJobWriteModel> jobs = new ArrayList<>();
 
+    public GroupWriteModel() {
+    }
+
     public String getSpecification() {
         return specification;
     }
