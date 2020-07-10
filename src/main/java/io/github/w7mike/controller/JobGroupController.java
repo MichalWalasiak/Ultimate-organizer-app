@@ -5,6 +5,7 @@ import io.github.w7mike.model.Job;
 import io.github.w7mike.model.JobRepository;
 import io.github.w7mike.model.projection.GroupReadModel;
 import io.github.w7mike.model.projection.GroupWriteModel;
+import io.github.w7mike.model.projection.ProjectWriteModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,6 +33,19 @@ public class JobGroupController {
     JobGroupController(final JobGroupService jobGroupService, final JobRepository jobRepository) {
         this.jobGroupService = jobGroupService;
         this.jobRepository = jobRepository;
+    }
+
+    @PostMapping
+    String addProject(@ModelAttribute("project") @Valid ProjectWriteModel current, BindingResult bindingResult,
+                      Model model) {
+        if (bindingResult.hasErrors()){
+            return "projects";
+        }
+        service.save(current);
+        model.addAttribute("project", new ProjectWriteModel());
+        model.addAttribute("projects", getProjects());
+        model.addAttribute("message" , "project added successfully");
+        return "projects";
     }
 
     @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
