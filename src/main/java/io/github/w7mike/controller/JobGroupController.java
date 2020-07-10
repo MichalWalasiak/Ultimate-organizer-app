@@ -7,8 +7,11 @@ import io.github.w7mike.model.projection.GroupReadModel;
 import io.github.w7mike.model.projection.GroupWriteModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,7 +19,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequestMapping("/groups")
 public class JobGroupController {
 
@@ -30,23 +33,30 @@ public class JobGroupController {
         this.jobRepository = jobRepository;
     }
 
-    @PostMapping
+    @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
+    String showGroups(Model model) {
+        model.addAttribute("group", new GroupWriteModel());
+        return "groups";
+    }
+
+    @ResponseBody
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<GroupReadModel> createGroup(@RequestBody @Valid GroupWriteModel newGroup){
         GroupReadModel outcome = jobGroupService.createGroup(newGroup);
         return ResponseEntity.created(URI.create("/" + outcome.getId())).body(outcome);
     }
-
-    @GetMapping
+    @ResponseBody
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<GroupReadModel>> readAllGroups(){
         return ResponseEntity.ok(jobGroupService.readAll().stream().collect(Collectors.toList()));
     }
-
-    @GetMapping("/{id}")
+    @ResponseBody
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<Job>> readAllJobsFromGroup(@PathVariable int id){
         return ResponseEntity.ok(jobRepository.findAllByJobGroup_Id(id));
     }
 
-
+    @ResponseBody
     @Transactional
     @PatchMapping("/{id}")
     public ResponseEntity<?> toggleGroup(@PathVariable int id){

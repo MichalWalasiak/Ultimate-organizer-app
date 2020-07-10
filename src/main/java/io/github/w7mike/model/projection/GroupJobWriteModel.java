@@ -3,11 +3,15 @@ package io.github.w7mike.model.projection;
 import io.github.w7mike.model.Job;
 import io.github.w7mike.model.JobGroup;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 public class GroupJobWriteModel {
 
+    @NotBlank(message = "task specification must be not null")
     private String specification;
+    @Valid
     private LocalDateTime deadline;
 
     public String getSpecification() {

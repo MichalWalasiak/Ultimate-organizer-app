@@ -50,7 +50,7 @@ public class ProjectsService {
                                         job.setSpecification(projectSteps.getSpecification());
                                         job.setDeadline(deadline.plusDays(projectSteps.getDaysToDeadline()));
                                         return job;
-                                    }).collect(Collectors.toSet())
+                                    }).collect(Collectors.toList())
                     );
                     return service.createGroup(target, project);
                 }).orElseThrow(() -> new IllegalArgumentException("project with given Id do not exists"));

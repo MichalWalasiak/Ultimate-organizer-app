@@ -3,13 +3,22 @@ package io.github.w7mike.model.projection;
 import io.github.w7mike.model.JobGroup;
 import io.github.w7mike.model.Project;
 
-import java.util.Set;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class GroupWriteModel {
 
+    @NotBlank(message = "job group's specification must be not null")
     private String specification;
-    private Set<GroupJobWriteModel> jobs;
+
+    private List<GroupJobWriteModel> jobs = new ArrayList<>();
+
+    public GroupWriteModel() {
+        jobs.add(new GroupJobWriteModel());
+    }
 
     public String getSpecification() {
         return specification;
@@ -19,11 +28,11 @@ public class GroupWriteModel {
         this.specification = specification;
     }
 
-    public Set<GroupJobWriteModel> getJobs() {
+    public List<GroupJobWriteModel> getJobs() {
         return jobs;
     }
 
-    public void setJobs(final Set<GroupJobWriteModel> jobs) {
+    public void setJobs(final List<GroupJobWriteModel> jobs) {
         this.jobs = jobs;
     }
 
@@ -37,6 +46,4 @@ public class GroupWriteModel {
         result.setProject(project);
         return result;
     }
-
-
 }
