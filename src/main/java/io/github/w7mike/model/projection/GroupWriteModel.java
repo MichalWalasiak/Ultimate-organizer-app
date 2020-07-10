@@ -3,12 +3,14 @@ package io.github.w7mike.model.projection;
 import io.github.w7mike.model.JobGroup;
 import io.github.w7mike.model.Project;
 
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class GroupWriteModel {
 
+    @NotBlank(message = "job group's specification must be not null")
     private String specification;
     private List<GroupJobWriteModel> jobs = new ArrayList<>();
 
