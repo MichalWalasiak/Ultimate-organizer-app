@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GroupReadModelTest {
@@ -20,9 +21,10 @@ class GroupReadModelTest {
         source.setJobs(Set.of(new Job("bar", null)));
 
         // when
-        var result = new GroupReadModel(source);
+        var outcome = new GroupReadModel(source);
 
         // then
+
     }
 
 }
