@@ -37,7 +37,7 @@ public class JobGroupController {
         this.jobRepository = jobRepository;
     }
 
-    @PostMapping(produces = MediaType.TEXT_HTML_VALUE, consumes = MediaType.TEXT_HTML_VALUE)
+    @PostMapping(produces = MediaType.TEXT_HTML_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     String addGroup(@ModelAttribute("group") @Valid GroupWriteModel current, BindingResult bindingResult,
                       Model model) {
         if (bindingResult.hasErrors()){
