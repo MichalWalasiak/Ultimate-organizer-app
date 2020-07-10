@@ -42,9 +42,9 @@ public class JobGroupController {
         if (bindingResult.hasErrors()){
             return "groups";
         }
-        jobGroupService.save(current);
+        jobGroupService.createGroup(current);
         model.addAttribute("group", new ProjectWriteModel());
-        model.addAttribute("groups", getProjects());
+        model.addAttribute("groups", getGroups());
         model.addAttribute("message" , "group added successfully");
         return "groups";
     }
