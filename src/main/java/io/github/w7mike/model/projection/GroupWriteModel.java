@@ -5,7 +5,6 @@ import io.github.w7mike.model.Project;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GroupWriteModel {
@@ -43,6 +42,4 @@ public class GroupWriteModel {
         result.setProject(project);
         return result;
     }
-
-
 }
