@@ -35,6 +35,7 @@ public class JobGroupController {
 
     @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
     String showGroups(Model model) {
+        model.addAttribute("group", new GroupWriteModel());
         return "groups";
     }
 
