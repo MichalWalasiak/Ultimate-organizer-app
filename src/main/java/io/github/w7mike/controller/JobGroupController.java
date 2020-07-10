@@ -3,7 +3,6 @@ package io.github.w7mike.controller;
 import io.github.w7mike.logic.JobGroupService;
 import io.github.w7mike.model.Job;
 import io.github.w7mike.model.JobRepository;
-import io.github.w7mike.model.ProjectStep;
 import io.github.w7mike.model.projection.GroupJobWriteModel;
 import io.github.w7mike.model.projection.GroupReadModel;
 import io.github.w7mike.model.projection.GroupWriteModel;
