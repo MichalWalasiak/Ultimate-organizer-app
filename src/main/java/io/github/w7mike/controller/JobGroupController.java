@@ -38,7 +38,7 @@ public class JobGroupController {
     }
 
     @PostMapping
-    String addProject(@ModelAttribute("group") @Valid GroupWriteModel current, BindingResult bindingResult,
+    String addGroup(@ModelAttribute("group") @Valid GroupWriteModel current, BindingResult bindingResult,
                       Model model) {
         if (bindingResult.hasErrors()){
             return "groups";
