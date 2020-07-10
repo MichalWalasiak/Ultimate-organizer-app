@@ -7,6 +7,7 @@ import io.github.w7mike.model.projection.GroupReadModel;
 import io.github.w7mike.model.projection.GroupWriteModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,13 +32,13 @@ public class JobGroupController {
         this.jobRepository = jobRepository;
     }
     @ResponseBody
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<GroupReadModel> createGroup(@RequestBody @Valid GroupWriteModel newGroup){
         GroupReadModel outcome = jobGroupService.createGroup(newGroup);
         return ResponseEntity.created(URI.create("/" + outcome.getId())).body(outcome);
     }
     @ResponseBody
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<GroupReadModel>> readAllGroups(){
         return ResponseEntity.ok(jobGroupService.readAll().stream().collect(Collectors.toList()));
     }
