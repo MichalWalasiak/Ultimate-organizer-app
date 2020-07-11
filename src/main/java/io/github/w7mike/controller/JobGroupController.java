@@ -21,7 +21,6 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/groups")
@@ -68,11 +67,13 @@ public class JobGroupController {
         GroupReadModel outcome = jobGroupService.createGroup(newGroup);
         return ResponseEntity.created(URI.create("/" + outcome.getId())).body(outcome);
     }
+
     @ResponseBody
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<GroupReadModel>> readAllGroups(){
         return ResponseEntity.ok(new ArrayList<>(jobGroupService.readAll()));
     }
+
     @ResponseBody
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<Job>> readAllJobsFromGroup(@PathVariable int id){
