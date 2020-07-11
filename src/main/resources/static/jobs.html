@@ -28,7 +28,7 @@
         if (response.ok) {
             const jobs = await response.json();
             const list = document.createElement('ul');
-            jobs.forEach(job => list.appendChild(createTask(job)));
+            jobs.forEach(job => list.appendChild(createJob(job)));
             main.prepend(list);
         }
         const form = document.querySelector('form');

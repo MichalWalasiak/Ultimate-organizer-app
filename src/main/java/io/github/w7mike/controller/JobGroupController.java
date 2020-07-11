@@ -3,8 +3,10 @@ package io.github.w7mike.controller;
 import io.github.w7mike.logic.JobGroupService;
 import io.github.w7mike.model.Job;
 import io.github.w7mike.model.JobRepository;
+import io.github.w7mike.model.projection.GroupJobWriteModel;
 import io.github.w7mike.model.projection.GroupReadModel;
 import io.github.w7mike.model.projection.GroupWriteModel;
+import io.github.w7mike.model.projection.ProjectWriteModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -12,10 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +37,25 @@ public class JobGroupController {
         this.jobRepository = jobRepository;
     }
 
+    @PostMapping(produces = MediaType.TEXT_HTML_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    String addGroup(@ModelAttribute("group") @Valid GroupWriteModel current, BindingResult bindingResult,
+                      Model model) {
+        if (bindingResult.hasErrors()){
+            return "groups";
+        }
+        jobGroupService.createGroup(current);
+        model.addAttribute("group", new ProjectWriteModel());
+        model.addAttribute("groups", getGroups());
+        model.addAttribute("message" , "group added successfully");
+        return "groups";
+    }
+
+    @PostMapping(params = "addJob", produces = MediaType.TEXT_HTML_VALUE)
+    String addGroupJob(@ModelAttribute("group") GroupWriteModel current) {
+        current.getJobs().add(new GroupJobWriteModel());
+        return "groups";
+    }
+
     @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
     String showGroups(Model model) {
         model.addAttribute("group", new GroupWriteModel());
@@ -48,7 +71,7 @@ public class JobGroupController {
     @ResponseBody
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<GroupReadModel>> readAllGroups(){
-        return ResponseEntity.ok(jobGroupService.readAll().stream().collect(Collectors.toList()));
+        return ResponseEntity.ok(new ArrayList<>(jobGroupService.readAll()));
     }
     @ResponseBody
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -72,5 +95,10 @@ public class JobGroupController {
     @ExceptionHandler(IllegalStateException.class)
     ResponseEntity<String> handleIllegalState(IllegalStateException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
+    @ModelAttribute("groups")
+    List<GroupReadModel> getGroups() {
+        return new ArrayList<>(jobGroupService.readAll());
     }
 }
