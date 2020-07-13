@@ -41,11 +41,12 @@
             <label>
                 <input type="checkbox" />
                 <span th:text="${group.specification}"></span>
+                <small th:text="$|({group.deadline})|"></small>
             </label>
         </dt>
         <dd>
             <ul class="P(0)">
-                <li th:each="job : ${group.jobs}" th:text="|${job.specification} ${job.deadline}|"></li>
+                <li th:each="job : ${group.jobs}" th:text="|${job.specification}|"></li>
             </ul>
         </dd>
     </dl>
@@ -59,12 +60,12 @@
             </label>
             <fieldset th:each="job, jobStat : *{jobs}">
                 <legend th:text="|Job ${jobStat.index + 1}|" ></legend>
-                <label> Specification
-                    <input type="text" th:field="*{jobs[__${jobStat.index}__].specification}" th:errorclass="'Bdc(red)'">
-                </label>
-                <label> Deadline
-                    <input type="number" th:field="*{jobs[__${jobStat.index}__].deadline}" th:errorclass="'Bdc(red)'">
-                </label>
+                    <label> Specification
+                        <input type="text" th:field="*{jobs[__${jobStat.index}__].specification}" th:errorclass="'Bdc(red)'">
+                    </label>
+                    <label> Deadline
+                        <input type="number" th:field="*{jobs[__${jobStat.index}__].deadline}" th:errorclass="'Bdc(red)'">
+                    </label>
             </fieldset>
             <div>
                 <button type="submit" name="addJob">+</button>
