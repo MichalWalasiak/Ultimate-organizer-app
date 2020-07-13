@@ -24,7 +24,6 @@ public class GroupReadModel {
         id = source.getId();
         specification = source.getSpecification();
             source.getJobs().stream()
-                    .sorted(Comparator.comparing(Job::getDeadline))
                     .map(Job::getDeadline)
                     .filter(Objects::nonNull)
                     .max(LocalDateTime::compareTo)
