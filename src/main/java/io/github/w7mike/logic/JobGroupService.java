@@ -8,6 +8,7 @@ import io.github.w7mike.model.Project;
 import io.github.w7mike.model.projection.GroupReadModel;
 import io.github.w7mike.model.projection.GroupWriteModel;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,11 +31,11 @@ public class JobGroupService {
         return new GroupReadModel(result);
     }
 
-    public Set<GroupReadModel> readAll(){
+    public List<GroupReadModel> readAll(){
         return groupsRepository.findAll()
                 .stream()
                 .map(GroupReadModel::new)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
     public void toggleGroup(Integer groupId){
