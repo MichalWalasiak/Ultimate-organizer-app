@@ -46,12 +46,14 @@
             </label>
         </dt>
         <dd>
-            <ul class="P(0)">
-                <li th:each="job : ${group.jobs}" >
-                    <small th:unles="${job.complete}" th:text="${job.specification}"></small>
-                    <span th:if="${job.complete}" th:text="${job.specification}"></span>
-                </li>
-            </ul>
+            <a href="@{/jobs.html(group=${group.id})}">
+                <ul class="P(0)">
+                    <li th:each="job : ${group.jobs}" >
+                        <small th:unles="${job.complete}" th:text="${job.specification}"></small>
+                        <span th:if="${job.complete}" th:text="${job.specification}"></span>
+                    </li>
+                </ul>
+            </a>
         </dd>
     </dl>
     <fieldset>
