@@ -31,9 +31,9 @@
 <main>
     <!--/*thymesVar id="message" type="java.lang.String"*/-->
     <h1 th:if="${message != null}" th:text="${message}" ></h1>
-    <!--/*thymesVar id="groups" type="java.util.List<io.github.w7mike.model.projection.GroupReadModel>"*/-->
+    <!--/*thymesVar id="group" type="java.util.List<io.github.w7mike.model.projection.GroupReadModel>"*/-->
     <dl th:each="group : ${groups}" class="Bd P(10px)">
-        <dt th:text="${project.specification}">...</dt>
+        <dt th:text="${group.specification}">...</dt>
         <dd>
             <ul class="P(0)">
                 <li th:each="job : ${group.jobs}" th:text="|${job.specification} ${job.Deadline}|"></li>
@@ -42,7 +42,8 @@
     </dl>
     <fieldset>
         <legend>New project</legend>
-        <form action="#" method="POST" th:action="@{/projects}" th:object="${project}">
+        <!--/*thymesVar id="group" type="io.github.w7mike.model.projection.GroupWriteModel"*/-->
+        <form action="#" method="POST" th:action="@{/groups}" th:object="${group}">
             <p class="C(red)" th:if="@{#fields.hasAnyErrors}" th:errors="*{all}"></p>
             <label> Specification
                 <input type="text" th:field="*{specification}" th:errorclass="'Bdc(red)'" />
