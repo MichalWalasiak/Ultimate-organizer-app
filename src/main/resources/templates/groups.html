@@ -36,7 +36,7 @@
         <dt th:text="${project.specification}">...</dt>
         <dd>
             <ul class="P(0)">
-                <li th:each="step : ${group.jobs}" th:text="|${step.specification} ${step.daysToDeadline} days|"></li>
+                <li th:each="job : ${group.jobs}" th:text="|${job.specification} ${job.Deadline}|"></li>
             </ul>
         </dd>
     </dl>
