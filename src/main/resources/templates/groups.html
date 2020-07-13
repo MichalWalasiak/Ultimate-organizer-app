@@ -41,7 +41,7 @@
             <label>
                 <input type="checkbox" />
                 <span th:text="${group.specification}"></span>
-                <small th:text="$|({group.deadline})|"></small>
+                <small th:text="|(${group.deadline})|"></small>
                 <hr class="M(0)" />
             </label>
         </dt>
