@@ -11,7 +11,7 @@ public class GroupJobWriteModel {
 
     @NotBlank(message = "task specification must be not null")
     private String specification;
-    @Valid
+
     private LocalDateTime deadline;
 
     public String getSpecification() {
