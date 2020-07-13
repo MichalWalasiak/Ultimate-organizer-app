@@ -6,7 +6,6 @@ import io.github.w7mike.model.JobRepository;
 import io.github.w7mike.model.projection.GroupJobWriteModel;
 import io.github.w7mike.model.projection.GroupReadModel;
 import io.github.w7mike.model.projection.GroupWriteModel;
-import io.github.w7mike.model.projection.ProjectWriteModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -43,7 +42,7 @@ public class JobGroupController {
             return "groups";
         }
         jobGroupService.createGroup(current);
-        model.addAttribute("group", new ProjectWriteModel());
+        model.addAttribute("group", new GroupWriteModel());
         model.addAttribute("groups", getGroups());
         model.addAttribute("message" , "group added successfully");
         return "groups";
