@@ -47,7 +47,10 @@
         </dt>
         <dd>
             <ul class="P(0)">
-                <li th:each="job : ${group.jobs}" th:text="|${job.specification}|"></li>
+                <li th:each="job : ${group.jobs}" >
+                    <small th:unles="${job.complete}" th:text="${job.specification}"></small>
+                    <span th:if="${job.complete}" th:text="${job.specification}"></span>
+                </li>
             </ul>
         </dd>
     </dl>
