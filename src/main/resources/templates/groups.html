@@ -70,7 +70,8 @@
                         <input type="text" th:field="*{jobs[__${jobStat.index}__].specification}" th:errorclass="'Bdc(red)'">
                     </label>
                     <label> Deadline
-                        <input type="number" th:field="*{jobs[__${jobStat.index}__].deadline}" th:errorclass="'Bdc(red)'">
+                        <input type="datetime-local" th:field="*{jobs[__${jobStat.index}__].deadline}" 
+                        th:errorclass="'Bdc(red)'" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}">
                     </label>
             </fieldset>
             <div>
