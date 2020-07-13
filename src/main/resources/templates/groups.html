@@ -49,8 +49,8 @@
             <a href="@{/jobs.html(group=${group.id})}">
                 <ul class="P(0)">
                     <li th:each="job : ${group.jobs}" >
-                        <small th:unles="${job.complete}" th:text="${job.specification}"></small>
-                        <span th:if="${job.complete}" th:text="${job.specification}"></span>
+                        <span th:unless="${job.complete}" th:text="${job.specification}"></span>
+                        <del th:if="${job.complete}" th:text="${job.specification}"></del>
                     </li>
                 </ul>
             </a>
@@ -59,7 +59,7 @@
     <fieldset>
         <legend>New group</legend>
         <!--/*thymesVar id="group" type="io.github.w7mike.model.projection.GroupWriteModel"*/-->
-        <form action="#" method="POST" th:action="@{/groups}" th:object="${group}">
+        <form action="#" method="post" th:action="@{/groups}" th:object="${group}">
             <p class="C(red)" th:if="@{#fields.hasAnyErrors}" th:errors="*{all}"></p>
             <label> Specification
                 <input type="text" th:field="*{specification}" th:errorclass="'Bdc(red)'" />
@@ -67,11 +67,11 @@
             <fieldset th:each="job, jobStat : *{jobs}">
                 <legend th:text="|Job ${jobStat.index + 1}|" ></legend>
                     <label> Specification
-                        <input type="text" th:field="*{jobs[__${jobStat.index}__].specification}" th:errorclass="'Bdc(red)'">
+                        <input type="text" th:field="*{jobs[__${jobStat.index}__].specification}" th:errorclass="'Bdc(red)'" />
                     </label>
-                    <label> Deadline
+                    <label>Deadline
                         <input type="datetime-local" th:field="*{jobs[__${jobStat.index}__].deadline}" 
-                        th:errorclass="'Bdc(red)'" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}">
+                        th:errorclass="'Bdc(red)'" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" />
                     </label>
             </fieldset>
             <div>
