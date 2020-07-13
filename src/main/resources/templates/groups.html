@@ -37,7 +37,12 @@
     <h1 th:if="${message != null}" th:text="${message}" ></h1>
     <!--/*thymesVar id="groups" type="java.util.List<io.github.w7mike.model.projection.GroupReadModel>"*/-->
     <dl th:each="group : ${groups}" class="Bd P(10px)">
-        <dt th:text="${group.specification}">...</dt>
+        <dt >
+            <label>
+                <input type="checkbox" />
+                <span th:text="${group.specification}"></span>
+            </label>
+        </dt>
         <dd>
             <ul class="P(0)">
                 <li th:each="job : ${group.jobs}" th:text="|${job.specification} ${job.deadline}|"></li>
