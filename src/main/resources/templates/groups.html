@@ -31,6 +31,7 @@
 <main>
     <!--/*thymesVar id="message" type="java.lang.String"*/-->
     <h1 th:if="${message != null}" th:text="${message}" ></h1>
+    <!--/*thymesVar id="groups" type="java.util.List<io.github.w7mike.model.projection.GroupReadModel>"*/-->
     <dl th:each="group : ${groups}" class="Bd P(10px)">
         <dt th:text="${project.specification}">...</dt>
         <dd>
