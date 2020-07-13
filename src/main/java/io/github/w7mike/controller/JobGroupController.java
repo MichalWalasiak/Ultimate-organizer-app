@@ -70,7 +70,7 @@ public class JobGroupController {
     @ResponseBody
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<GroupReadModel>> readAllGroups(){
-        return ResponseEntity.ok(new ArrayList<>(jobGroupService.readAll()));
+        return ResponseEntity.ok(jobGroupService.readAll());
     }
 
     @ResponseBody
@@ -99,6 +99,6 @@ public class JobGroupController {
 
     @ModelAttribute("groups")
     List<GroupReadModel> getGroups() {
-        return new ArrayList<>(jobGroupService.readAll());
+        return jobGroupService.readAll();
     }
 }
