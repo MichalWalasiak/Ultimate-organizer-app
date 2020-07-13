@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ultimate-organizer-app: projects</title>
+    <title>ultimate-organizer-app: groups</title>
     <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
     <style>
         .Bd {
@@ -31,11 +31,11 @@
 <main>
     <!--/*thymesVar id="message" type="java.lang.String"*/-->
     <h1 th:if="${message != null}" th:text="${message}" ></h1>
-    <dl th:each="project : ${projects}" class="Bd P(10px)">
+    <dl th:each="group : ${groups}" class="Bd P(10px)">
         <dt th:text="${project.specification}">...</dt>
         <dd>
             <ul class="P(0)">
-                <li th:each="step : ${project.steps}" th:text="|${step.specification} ${step.daysToDeadline} days|"></li>
+                <li th:each="step : ${group.jobs}" th:text="|${step.specification} ${step.daysToDeadline} days|"></li>
             </ul>
         </dd>
     </dl>
