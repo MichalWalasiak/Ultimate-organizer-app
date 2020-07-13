@@ -36,7 +36,7 @@
         <dt th:text="${group.specification}">...</dt>
         <dd>
             <ul class="P(0)">
-                <li th:each="job : ${group.jobs}" th:text="|${job.specification} ${job.Deadline}|"></li>
+                <li th:each="job : ${group.jobs}" th:text="|${job.specification} ${job.deadline}|"></li>
             </ul>
         </dd>
     </dl>
@@ -48,13 +48,13 @@
             <label> Specification
                 <input type="text" th:field="*{specification}" th:errorclass="'Bdc(red)'" />
             </label>
-            <fieldset th:each="step, stepStat : *{steps}">
-                <legend th:text="|Step ${stepStat.index + 1}|" ></legend>
+            <fieldset th:each="job, jobStat : *{jobs}">
+                <legend th:text="|Job ${jobStat.index + 1}|" ></legend>
                 <label> Specification
-                    <input type="text" th:field="*{steps[__${stepStat.index}__].specification}" th:errorclass="'Bdc(red)'">
+                    <input type="text" th:field="*{jobs[__${jobStat.index}__].specification}" th:errorclass="'Bdc(red)'">
                 </label>
                 <label> Days to project end
-                    <input type="number" th:field="*{steps[__${stepStat.index}__].daysToDeadline}" th:errorclass="'Bdc(red)'">
+                    <input type="number" th:field="*{jobs[__${jobStat.index}__].deadline}" th:errorclass="'Bdc(red)'">
                 </label>
             </fieldset>
             <div>
