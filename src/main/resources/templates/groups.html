@@ -57,7 +57,7 @@
         </dd>
     </dl>
     <fieldset>
-        <legend>New project</legend>
+        <legend>New group</legend>
         <!--/*thymesVar id="group" type="io.github.w7mike.model.projection.GroupWriteModel"*/-->
         <form action="#" method="POST" th:action="@{/groups}" th:object="${group}">
             <p class="C(red)" th:if="@{#fields.hasAnyErrors}" th:errors="*{all}"></p>
