@@ -17,7 +17,7 @@ public class LogicAspect {
         projectCreateGroupTimer = registry.timer("logic.project.create.group");
     }
 
-    @Around("execution(* io.github.w7mike.logic.ProjectService.createGroup(..))")
+    @Around("execution(* io.github.w7mike.logic.ProjectsService.createGroup(..))")
     Object aroundProjectCreateGroup(ProceedingJoinPoint joinPoint) {
         return projectCreateGroupTimer.record(()->{
             try {
