@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class LogicAspect {
-
     private static final Logger logger = LoggerFactory.getLogger(LogicAspect.class);
     private final Timer projectCreateGroupTimer;
 
@@ -25,7 +24,6 @@ public class LogicAspect {
 
     @Pointcut("execution(* io.github.w7mike.logic.ProjectsService.createGroup(..))")
     static void projectsServiceCreateGroup() {
-
     }
 
     @Before("projectsServiceCreateGroup()")
