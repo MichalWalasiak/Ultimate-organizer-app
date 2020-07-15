@@ -11,6 +11,13 @@ public class LogicAspect {
 
     @Around("execution(* io.github.w7mike.logic.ProjectService.createGroup(..))")
     Object aroundProjectCreateGroup(ProceedingJoinPoint joinPoint) {
-        return joinPoint;
+        try {
+            return joinPoint.proceed();
+        } catch (Throwable e) {
+            if (e instanceof RuntimeException){
+                throw (RuntimeException) e;
+            }
+            throw new RuntimeException();
+        }
     }
 }
