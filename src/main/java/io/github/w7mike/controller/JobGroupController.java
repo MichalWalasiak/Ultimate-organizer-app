@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@IllegalExceptionProcessing
 @RequestMapping("/groups")
 public class JobGroupController {
 
