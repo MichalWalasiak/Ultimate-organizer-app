@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogicAspect {
 
-    @Around()
+    @Around("execution(* io.github.w7mike.logic.ProjectService.createGroup(..))")
     Object aroundProjectCreateGroup(ProceedingJoinPoint joinPoint) {
         return joinPoint;
     }
