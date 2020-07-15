@@ -24,16 +24,16 @@ public class LogicAspect {
     }
 
     @Pointcut("execution(* io.github.w7mike.logic.ProjectsService.createGroup(..))")
-    static void projectsServicesCreateGroup() {
+    static void projectsServiceCreateGroup() {
 
     }
 
-    @Before("projectsServicesCreateGroup")
+    @Before("projectsServiceCreateGroup()")
     void logMethodCall(JoinPoint jp) {
         logger.info("Before {} with {}", jp.getSignature().getName(), jp.getArgs());
     }
 
-    @Around("projectsServicesCreateGroup")
+    @Around("projectsServiceCreateGroup()")
     Object aroundProjectCreateGroup(ProceedingJoinPoint joinPoint) {
         return projectCreateGroupTimer.record(()->{
             try {
