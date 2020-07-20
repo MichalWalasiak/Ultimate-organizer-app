@@ -30,10 +30,10 @@ public class Warmup implements ApplicationListener<ContextRefreshedEvent> {
             var group = new JobGroup();
             group.setSpecification(specification);
             group.setJobs(Set.of(
+                    new Job("ContextStartedEvent", null, group),
                     new Job("ContextRefreshedEvent", null, group),
-                    new Job("ContextRefreshedEvent", null, group),
-                    new Job("ContextRefreshedEvent", null, group),
-                    new Job("ContextRefreshedEvent", null, group)
+                    new Job("ContextStoppedEvent", null, group),
+                    new Job("ContextClosedEvent", null, group)
 
             ));
         }
