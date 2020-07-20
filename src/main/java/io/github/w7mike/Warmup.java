@@ -36,6 +36,7 @@ public class Warmup implements ApplicationListener<ContextRefreshedEvent> {
                     new Job("ContextClosedEvent", null, group)
 
             ));
+            groupRepository.save(group);
         }
     }
 }
