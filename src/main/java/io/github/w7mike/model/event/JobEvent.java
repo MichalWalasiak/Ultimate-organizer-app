@@ -13,4 +13,12 @@ public abstract class JobEvent {
     public Instant getOccurrence() {
         return occurrence;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "jobId=" + jobId +
+                ", occurrence=" + occurrence +
+                '}';
+    }
 }
