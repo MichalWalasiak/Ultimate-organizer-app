@@ -1,9 +1,15 @@
 package io.github.w7mike.model.event;
 
+import io.github.w7mike.model.Job;
+
 import java.time.Clock;
 import java.time.Instant;
 
 public abstract class JobEvent {
+    public static JobEvent changed(Job source) {
+        return source.isComplete() ? new JobDone(source) : new JobUndone(source);
+    }
+
     private Integer jobId;
     private Instant occurrence;
 
