@@ -19,6 +19,10 @@ public class Warmup implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(final ContextRefreshedEvent event) {
+        logger.info("Application warm up after context refreshed");
+        final String specification = "";
+        if(!groupRepository.existsBySpecification(specification)){
 
+        }
     }
 }
