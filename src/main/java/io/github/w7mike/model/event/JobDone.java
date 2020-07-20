@@ -6,7 +6,7 @@ import java.time.Clock;
 
 public class JobDone extends JobEvent {
 
-    public JobDone(final Job source) {
+    JobDone(final Job source) {
         super(source.getId(), Clock.systemDefaultZone());
     }
 }
