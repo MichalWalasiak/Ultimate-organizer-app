@@ -195,8 +195,14 @@ class ProjectServiceTest {
         @Override
         public boolean existsByCompleteIsFalseAndProject_Id(final Integer projectId) {
             return map.values().stream()
-                    .filter(jobGroups -> !jobGroups.isComplete())
-                    .anyMatch(jobGroups -> jobGroups.getProject() != null && jobGroups.getProject().getId() == projectId);
+                    .filter(jobGroup -> !jobGroup.isComplete())
+                    .anyMatch(jobGroup -> jobGroup.getProject() != null && jobGroup.getProject().getId() == projectId);
+        }
+
+        @Override
+        public boolean existsBySpecification(final String specification) {
+            return map.values().stream()
+                    .anyMatch(jobGroup -> !jobGroup.getSpecification().equals(specification));
         }
     }
 }
