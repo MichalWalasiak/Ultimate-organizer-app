@@ -31,9 +31,7 @@ abstract class BaseJob {
         updatedOn = LocalDateTime.now();
     }
 
-
     public BaseJob(){
-
     }
 
     public BaseJob(String specification) {
@@ -67,6 +65,5 @@ abstract class BaseJob {
     public void updateFrom(final Job source){
         specification = source.getSpecification();
         complete = source.isComplete();
-
     }
 }
