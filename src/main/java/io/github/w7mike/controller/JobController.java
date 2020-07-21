@@ -53,6 +53,7 @@ class JobController {
                 .orElse(ResponseEntity.notFound().build());
 
     }
+
     @GetMapping("/search/complete")
     ResponseEntity<List<Job>> readCompleteJobs(@RequestParam(defaultValue = "true") boolean status) {
             return ResponseEntity.ok(repository.findByComplete(status));
@@ -99,5 +100,4 @@ class JobController {
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
 }
