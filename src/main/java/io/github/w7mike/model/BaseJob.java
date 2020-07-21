@@ -1,5 +1,6 @@
 package io.github.w7mike.model;
 
+import io.github.w7mike.model.event.JobEvent;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -58,8 +59,9 @@ abstract class BaseJob {
         return complete;
     }
 
-    public void setComplete(boolean complete) {
-        this.complete = complete;
+    public JobEvent toggle() {
+        this.complete = !this.complete;
+        return JobEvent.changed((Job) this);
     }
 
     public void updateFrom(final Job source){
