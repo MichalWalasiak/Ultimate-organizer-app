@@ -4,6 +4,7 @@ import io.github.w7mike.model.Job;
 import io.github.w7mike.model.JobRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,11 +19,13 @@ import java.util.List;
 class JobController {
 
     private final Logger logger = LoggerFactory.getLogger(JobController.class);
+    private final ApplicationEventPublisher eventPublisher;
 
     private final JobRepository repository;
 
-    JobController(final JobRepository repository) {
+    JobController(final JobRepository repository, final ApplicationEventPublisher eventPublisher) {
         this.repository = repository;
+        this.eventPublisher = eventPublisher;
     }
 
     @PostMapping
@@ -78,7 +81,7 @@ class JobController {
 
         repository.findById(id)
                 .map(Job::toggle)
-                .ifPresent(job -> job.setComplete(!job.isComplete()));
+                .ifPresent(eventPublisher::publishEvent);
         return ResponseEntity.notFound().build();
 
         /*Job job = repository.findById(id).get();
