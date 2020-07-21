@@ -76,10 +76,15 @@ class JobController {
             return ResponseEntity.notFound().build();
         }
 
-        Job job = repository.findById(id).get();
+        repository.findById(id)
+                .map(Job::toggle)
+                .ifPresent(job -> job.setComplete(!job.isComplete()));
+        return ResponseEntity.notFound().build();
+
+        /*Job job = repository.findById(id).get();
         job.setComplete(!job.isComplete());
 
-        return ResponseEntity.ok(job);
+        return ResponseEntity.ok(job);*/
     }
 
     @DeleteMapping("/{id}")
