@@ -1,12 +1,12 @@
 package io.github.w7mike.model.event;
 
-import io.github.w7mike.model.Job;
+import io.github.w7mike.model.BaseJob;
 
 import java.time.Clock;
 import java.time.Instant;
 
 public abstract class JobEvent {
-    public static JobEvent changed(Job source) {
+    public static JobEvent changed(BaseJob source) {
         return source.isComplete() ? new JobDone(source) : new JobUndone(source);
     }
 
