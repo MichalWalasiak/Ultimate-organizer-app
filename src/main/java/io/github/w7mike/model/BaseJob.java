@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-abstract class BaseJob {
+public abstract class BaseJob {
 
     @Id
     @GeneratedValue(generator = "inc")
@@ -61,7 +61,7 @@ abstract class BaseJob {
 
     public JobEvent toggle() {
         this.complete = !this.complete;
-        return JobEvent.changed((Job) this);
+        return JobEvent.changed(this);
     }
 
     public void updateFrom(final Job source){
