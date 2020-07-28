@@ -8,7 +8,7 @@ import java.time.ZoneId;
 
 @Entity
 @Table(name = "job_events")
-public class PersistedJobEvent {
+class PersistedJobEvent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
