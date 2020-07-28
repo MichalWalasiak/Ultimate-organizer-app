@@ -49,7 +49,7 @@ class JobController {
     @GetMapping("/{id}")
     ResponseEntity<Job>readSelectedJob(@PathVariable int id){
         return repository.findById(id)
-                .map(job -> ResponseEntity.ok(job))
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
 
     }
