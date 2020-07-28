@@ -18,7 +18,6 @@ public class Job extends BaseJob {
 
     public Job(final String specification, LocalDateTime deadline) {
         this(specification, deadline, null);
-
     }
 
     public Job(final String specification, LocalDateTime deadline, JobGroup jobGroup) {
@@ -27,7 +26,6 @@ public class Job extends BaseJob {
         if (jobGroup != null){
             this.jobGroup = jobGroup;
         }
-
     }
 
     public LocalDateTime getDeadline() {
