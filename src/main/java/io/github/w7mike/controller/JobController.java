@@ -75,7 +75,7 @@ class JobController {
 
     @Transactional
     @PatchMapping("/{id}")
-    public ResponseEntity<Job> toggleJob(@PathVariable int id){
+    public ResponseEntity<?> toggleJob(@PathVariable int id){
         if(!repository.existsById(id)){
             return ResponseEntity.notFound().build();
         }
@@ -83,12 +83,7 @@ class JobController {
         repository.findById(id)
                 .map(Job::toggle)
                 .ifPresent(eventPublisher::publishEvent);
-        return ResponseEntity.notFound().build();
-
-        /*Job job = repository.findById(id).get();
-        job.setComplete(!job.isComplete());
-
-        return ResponseEntity.ok(job);*/
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
