@@ -6,6 +6,7 @@ import io.github.w7mike.model.event.JobUndone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,11 +20,13 @@ public class ChangedJobEventListener {
         this.repository = repository;
     }
 
+    @Async
     @EventListener
     public void on(JobDone event) {
         onChanged(event);
     }
 
+    @Async
     @EventListener
     public void on(JobUndone event) {
         onChanged(event);
