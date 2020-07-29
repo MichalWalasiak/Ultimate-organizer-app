@@ -1,10 +1,13 @@
 package io.github.w7mike.reports;
 
+import io.github.w7mike.model.Job;
 import io.github.w7mike.model.JobRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 @Controller("/reports")
 public class ReportController {
@@ -22,5 +25,10 @@ public class ReportController {
                 .map(job -> new JobWithChangesCount(job, persistedJobEventRepository.findByJobId(id)))
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    private static class JobWithChangesCount {
+        public JobWithChangesCount(final Job job, final List<PersistedJobEvent> events) {
+        }
     }
 }
