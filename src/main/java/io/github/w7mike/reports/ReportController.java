@@ -31,10 +31,12 @@ public class ReportController {
 
         public String specification;
         public boolean complete;
+        public int changesCounter;
 
         public JobWithChangesCount(final Job job, final List<PersistedJobEvent> events) {
             specification = job.getSpecification();
             complete = job.isComplete();
+            changesCounter = events.size();
         }
     }
 }
