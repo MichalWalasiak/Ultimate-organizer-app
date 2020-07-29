@@ -28,7 +28,13 @@ public class ReportController {
     }
 
     private static class JobWithChangesCount {
+
+        public String specification;
+        public boolean complete;
+
         public JobWithChangesCount(final Job job, final List<PersistedJobEvent> events) {
+            specification = job.getSpecification();
+            complete = job.isComplete();
         }
     }
 }
